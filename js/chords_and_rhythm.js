@@ -67,15 +67,35 @@ function randomChords() {
 
 }
 
-// Not random yet, just 12 bars. Still rad!
 function randomChordChartt(chords){
-    var twelve_bar = [1, 1, 1, 1, 4, 4, 1, 1, 4, 1, 4, 5]
+    //var chordsNumbers = [1, 1, 1, 1, 4, 4, 1, 1, 4, 1, 4, 5]
+    var chordsNumbers = randomChordNumbers(12)
     var progression = []
-    for (let i of twelve_bar){
+    for (let i of chordsNumbers){
         progression.push(chords[i-1])
     }
     return progression
 }
+
+function randomChordNumbers(count, upper) {
+    // Build out a more pythonic x range so I can do
+    // xrange(1, upper +1)
+    var chordRange = xrange(7)
+    var result = []
+
+    // Pushing the 1 chord at the begging and end
+    for (let i of xrange(count)) {
+        if (i === 0 || i +1 === count) {
+            result.push(1)
+        }
+        else {
+            result.push(choice(chordRange) +1)
+        }
+    }
+    return result
+}
+
+//var random_12_chords = randomChordNumbers(12)
 
 /* ########## RHYTHM ##########  */
 
