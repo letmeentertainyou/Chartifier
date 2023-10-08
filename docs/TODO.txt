@@ -1,0 +1,16 @@
+*** Display ***
+    *pad chord strings.
+    *center align css.
+    *fix font size.
+
+
+*** Features ***
+    *weighted random Chords
+    *user radio buttons for key/rhythm
+    *new chords button
+
+
+*** Documentation ***
+    *doc strings
+    *add js linting tools
+    *add pre_commit hook
