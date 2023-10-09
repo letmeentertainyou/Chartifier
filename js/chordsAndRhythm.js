@@ -28,7 +28,7 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
     if (key.includes('#')) {       // skips flats
         all_notes = [sharps]
     }
-    // This can be an range.
+
     for (let index of xrange(3)) {
         for (let notes of all_notes) {
             var res = assembler(notes[index])
@@ -77,19 +77,18 @@ function randomChordChartt(chords){
     return progression
 }
 
+// These are not zero indexed so that they are
+// readable by human musicians.
 function randomChordNumbers(count, upper) {
-    // Build out a more pythonic x range so I can do
-    // xrange(1, upper +1)
-    var chordRange = xrange(7)
+    var chordRange = xrange(8, 1)
     var result = []
 
-    // Pushing the 1 chord at the begging and end
-    for (let i of xrange(count)) {
-        if (i === 0 || i +1 === count) {
+    for (let i of xrange(count +1, 1)) {
+        if (i === 1 || i === count) {
             result.push(1)
         }
         else {
-            result.push(choice(chordRange) +1)
+            result.push(choice(chordRange))
         }
     }
     return result
@@ -118,7 +117,6 @@ function eighthNotePool(size, upper) {
 function uniqueCombos(size, pool) {
     var combos = []
     for (let i of xrange(pool.length, 0, -1)) {
-        document.write(i)
         for (let combo of combinations(pool, i)) {
             if (sum(combo) == size){
                 combos.push(combo)   

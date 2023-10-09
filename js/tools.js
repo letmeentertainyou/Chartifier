@@ -3,9 +3,12 @@
 /* ########## UTIL ##########  */
 
 //easier for debugging, these are always tmp and need to be removed before committing.
-function echo(message) {
-    document.write(message)
-}
+
+const echo = message => document.write(message)
+const nl = _ => document.write('<br>')
+
+//Stolen from random.js, only here for future projects that don't include random.js
+//const intDiv = (a, b) => (a - a % b) / b
 
 // THIS IS 100% STOLEN FROM THE INTERNET
 function combinations(array, size) {
