@@ -1,9 +1,7 @@
 #!/bin/python3
 
-import json
-
 from itertools import combinations
-from random import choice, shuffle
+from random import choice
 
 from music_theory import *
 
