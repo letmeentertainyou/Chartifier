@@ -2,9 +2,9 @@
 
 /* ########## UTIL ##########  */
 
-//easier for dubuggings
+//easier for debugging, these are always tmp and need to be removed before committing.
 function echo(message) {
-    console.log(message);
+    document.write(message)
 }
 
 // THIS IS 100% STOLEN FROM THE INTERNET
@@ -12,29 +12,42 @@ function combinations(array, size) {
 
     function p(t, i) {
         if (t.length === size) {
-            result.push(t);
-            return;
+            resultult.push(t)
+            return
         }
         if (i + 1 > array.length) {
-            return;
+            return
         }
-        p(t.concat(array[i]), i + 1);
-        p(t, i + 1);
+        p(t.concat(array[i]), i + 1)
+        p(t, i + 1)
     }
 
-    var result = [];
-    p([], 0);
-    return result;
+    var resultult = []
+    p([], 0)
+    return resultult
 }
 
-// Like python's range but js already has a range keyword.
-function xrange(count) {
-    var res = []
-    for (let i=0; i <count; i++)
-        res.push(i)
-    return res
+// Looping through this is wildly inefficient because the loop happens twice
+// So for any slow/large loops just type it out. But you can also use this to
+// Generate lists of numbers which js doesn't do natively
+function xrange(upper, lower=0, step=1) {
+    var result = []
+    // I hated duplicating this code but upper and lower need to switch place for easy use
+    // In python the user has to know to switch the order of the numbers which feels bad.
+    if (step === 1) {
+        for (let i=lower; i <upper; i++) {
+            result.push(i)
+        }
+    }
+    if (step === -1) {
+        for (let i=upper; i >lower; i--) {
+            result.push(i)
+        }
+    }
+    return result
 }
 
+// Why this isn't a built in truly eludes me.
 function sum(iterator) {
     var total = 0
     for (let x of iterator) {
@@ -48,10 +61,10 @@ function sum(iterator) {
 // Then turns that set back into a list to finally get the unique items from the given array
 // This should absolutely be a builtin. I will take it anywhere I need sets.
 function removeDupeArrays(iterator) {
-    let stringArray = iterator.map(JSON.stringify);
-    let uniqueStringArray = new Set(stringArray);
-    let results = Array.from(uniqueStringArray, JSON.parse);
-    return results
+    let stringArray = iterator.map(JSON.stringify)
+    let uniqueStringArray = new Set(stringArray)
+    let resultults = Array.from(uniqueStringArray, JSON.parse)
+    return resultults
 }
 
 function arrayComp(iteratorA, iteratorB) {
@@ -77,6 +90,6 @@ function lenSetFirstChars(listOfStr) {
     for (let i of listOfStr) {
         set.add(i[0])
     }
-    var usableSet = Array.from(set);
+    var usableSet = Array.from(set)
     return usableSet.length
 }

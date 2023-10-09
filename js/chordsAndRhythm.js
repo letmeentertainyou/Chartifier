@@ -28,8 +28,8 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
     if (key.includes('#')) {       // skips flats
         all_notes = [sharps]
     }
-
-    for (let index=0;index<3;index++) {
+    // This can be an range.
+    for (let index of xrange(3)) {
         for (let notes of all_notes) {
             var res = assembler(notes[index])
             var chords = res[0]
@@ -109,7 +109,7 @@ function strummer(list_int) {
 
 function eighthNotePool(size, upper) {
     var pool = []
-    for (let i=2; i<=upper; i++) {
+    for (let i of xrange(upper +1, 2)) {
         pool.push(...Array(intDiv(size, i)).fill(i))
     }
     return pool
@@ -117,7 +117,8 @@ function eighthNotePool(size, upper) {
 
 function uniqueCombos(size, pool) {
     var combos = []
-    for (let i=pool.length; i>=0; i--)  {
+    for (let i of xrange(pool.length, 0, -1)) {
+        document.write(i)
         for (let combo of combinations(pool, i)) {
             if (sum(combo) == size){
                 combos.push(combo)   
