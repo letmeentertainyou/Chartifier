@@ -3,7 +3,6 @@
 /* ########## UTIL ##########  */
 
 //easier for debugging, these are always tmp and need to be removed before committing.
-
 const echo = message => document.write(message)
 const nl = _ => document.write('<br>')
 
@@ -15,7 +14,7 @@ function combinations(array, size) {
 
     function p(t, i) {
         if (t.length === size) {
-            resultult.push(t)
+            result.push(t)
             return
         }
         if (i + 1 > array.length) {
@@ -25,9 +24,9 @@ function combinations(array, size) {
         p(t, i + 1)
     }
 
-    var resultult = []
+    var result = []
     p([], 0)
-    return resultult
+    return result
 }
 
 // Looping through this is wildly inefficient because the loop happens twice
@@ -66,8 +65,8 @@ function sum(iterator) {
 function removeDupeArrays(iterator) {
     let stringArray = iterator.map(JSON.stringify)
     let uniqueStringArray = new Set(stringArray)
-    let resultults = Array.from(uniqueStringArray, JSON.parse)
-    return resultults
+    let results = Array.from(uniqueStringArray, JSON.parse)
+    return results
 }
 
 function arrayComp(iteratorA, iteratorB) {
