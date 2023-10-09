@@ -96,7 +96,7 @@ def chord_weights(count=12):
     Weights should also change based on where in the progression you are and I haven't figured that out yet.'''
     
     def manip(c):
-        '''Pick random number and reduce it's appearances unless it only appears once then double it.'''
+        '''Pick random number and double it's appearances.'''
         magic_number = choice(c)
         tmp = list(c)
         tmp += 2 * [magic_number]
@@ -114,7 +114,6 @@ def chord_weights(count=12):
 ########################################################3#####################
 
 
-# This just does my slashes should be easy enough
 def strummer(list_int):
     result = []
     for num in list_int:
@@ -153,8 +152,6 @@ def random_strum_pattern(size: int = 8, upper: int = 4):
 ###################################################################################################
 
 # EXample uses
-
-
 pattern = random_strum_pattern()
 chords, key = random_chords()
 print([pattern, chords, key])
