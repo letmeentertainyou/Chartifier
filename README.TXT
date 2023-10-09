@@ -1,4 +1,4 @@
-Chartifier v0.1.0
+Chartifier v0.2.0
 
 Randomly generates a chord chart and strum pattern for you to play.
 
@@ -11,14 +11,20 @@ Chartifier.html generates a new random chord chart every time you load it. v0.1.
 demo site, I will polish the html/css as I go forward. Right now it's just the 12 bar blues in a 
 random key but I'm going to expand the random harmony algorithms after launch.
 
-I'm also going to add some radio buttons so users can select any key they want, as well as rhythmic
-choices, and a 'New Chords' button.
+(Now Chartifier generates random chords)
 
-I will also add a way to save chord charts you like (maybe as a pdf?). But that feature won't be before
-version 0.2.0
+Starting with v0.2.0 I will be backing up old versions of the chord algorithms so that any users
+who prefer the chords of an older version can use it. The backups won't show up until version 0.3.0
+ships to github.
+
+***
+
+I'm also going to add some radio buttons so users can select any key they want, as well as rhythmic
+choices, and a 'New Chords' button. I will also add a way to save chord charts you like (maybe as a pdf?).
 
 Since this project is pretty data heavy I will be modeling my algorithms in python first and then converting
-all the sick python builtins into js as I go.
+all the sick python builtins into js as I go. I'm compiling tools like xrange and deepCopy in js/tools.js feel
+free to grab any of them for other projects. The tools that are stolen from the internet are clearly marked. 
 
 
 LICENSE

@@ -1,7 +1,9 @@
 #!/bin/python3
 
+import json
+
 from itertools import combinations
-from random import choice
+from random import choice, shuffle
 
 from music_theory import *
 
@@ -64,36 +66,51 @@ def random_chords():
     return chords, f"{key} {mode_name}"
 
 
+####### CHORD CHART MATH #######
+
+
 # Not random yet, just 12 bars. Still rad!
-def random_chord_chart(chords):
-    twelve_bar  = [1, 1, 1, 1, 4, 4, 1, 1, 4, 1, 4, 5]
+def chord_chart(chords):
+    numbers = chord_numbers(12)
     progression = []
-    for i in twelve_bar:
-        progression.append(chords[i-1])
+
+    for i in numbers:
+        progression.append(chords[i -1])
+
     print(progression)
+    return progression
 
-
-def random_chord_numbers(count=12):
-    chordRange = chord_weights()
+def chord_numbers(count=12):
     result = []
-
-    for i in range(1, count +1):
-        if i == 1 or i == count: 
+    weights = chord_weights(count=count)
+    for i in range(len(weights)):
+        if i == 0 or i == count: 
             result.append(1)
         else: 
-            result.append(choice(chordRange))
-    print(result)
+            result.append(choice(weights[i]))
     return result
 
 
-def chord_weights():
+# Rename these names
+def chord_weights(count=12):
     '''How many times a chord appears in the list can be a primitive for weighing the chords.
     
     Weights should also change based on where in the progression you are and I haven't figured that out yet.'''
-    return [1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 7]
-    #return list(range(1, 7))
+    
+    def manip(c):
+        '''Pick random number and reduce it's appearances unless it only appears once then double it.'''
+        magic_number = choice(c)
+        tmp = list(c)
+        tmp += 2 * [magic_number]
+        return tuple(sorted(tmp))
 
-random_chord_numbers(12)
+    start = (1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 7)
+    result = [start]
+    for x in range(count -1):
+         result.append(manip(result[x]))
+    return result
+
+
 ##############################################################################
 ############################## RHYTHM GENERATOR ##############################
 ########################################################3#####################
@@ -143,5 +160,5 @@ def random_strum_pattern(size: int = 8, upper: int = 4):
 pattern = random_strum_pattern()
 chords, key = random_chords()
 print([pattern, chords, key])
-random_chord_chart(chords=chords)
+chord_chart(chords=chords)
 

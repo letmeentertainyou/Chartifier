@@ -5,7 +5,7 @@
 
 
 *** Features ***
-    *weighted random Chords
+    *weighted random Chords DONE
     *user radio buttons for key/rhythm
     *new chords button
 
@@ -14,3 +14,9 @@
     *doc strings
     *add js linting tools
     *add pre_commit hook
+
+
+changelog:
+v0.2.0
+Added chord weighing algorithms in python and js.
+Added deepCopy and xfill to js/tools.js
