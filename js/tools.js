@@ -37,12 +37,12 @@ function xrange(upper, lower=0, step=1) {
     // I hated duplicating this code but upper and lower need to switch place for easy use
     // In python the user has to know to switch the order of the numbers which feels bad.
     if (step === 1) {
-        for (let i=lower; i <upper; i++) {
+        for (let i=lower; i<upper; i++) {
             result.push(i)
         }
     }
     if (step === -1) {
-        for (let i=upper; i >lower; i--) {
+        for (let i=upper; i>lower; i--) {
             result.push(i)
         }
     }

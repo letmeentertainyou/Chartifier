@@ -1,71 +1,13 @@
 #!/bin/python3
 
-'''
-I ended up building out all 7 main modes, and melodic/harmonic minor scales.
-I am choosing not to support double flats/sharps and keys with both types of accent.
-
-MUSIC THEORY NOTES FOR DEVELOPERS
-order of sharps  f c g d a e b
-order of flats   b e a d g c f
-                                7   6   5  4  3  2  1  0
-7 sharp keys                    C#  F#  B  E  A  D  G  C
-7 flat keys   C  F  Bb  Eb  Ab  Db  Gb  Cb 
-              0  1  2   3   4   5   6   7
-
-
-REMOVED KEYS
-These keys have all been removed because they use double flats, double sharps
-or the sinful sharp + flat combo. Well they are real music keys that can be played
-They are impractical for anyone reading a chord chart anyways and so supporting them is
-very low priority.
-
-Double Sharps
-G# D# A# E# B#
-
-Melodic G, Gb, Cb
-      G melodic has 1 flat/1 sharp and my API is not going to allow for that.
-      G 2 A 1 Bb 2 C 2 D 2 E 2 F# 1 G
-
-Harmonic Db, D, Gb, G, Cb
-'''
-
 from itertools import combinations
 from random import choice
 
+from music_theory import *
 
-def join(iterable, string: str):
-    return string.join(iterable)
-
-
-##############################################################################
-
-############################# HARMONY GENERATOR ##############################
-
-########################################################3#####################
-
-diatonic_notes: dict = { 'C#': 'Db', 'F#': 'Gb', 'B' : 'Cb', 'Db': 'C#', 'Gb': 'F#', 'Cb': 'B' }
-
-primary_sharps   = ('C',  'C#', 'D', 'D#', 'E', 'F',  'F#', 'G', 'G#', 'A', 'A#', 'B' )
-secondary_sharps = ('C',  'C#', 'D', 'D#', 'E', 'E#', 'F#', 'G', 'G#', 'A', 'A#', 'B' )
-tertiary_sharps  = ('B#', 'C#', 'D', 'D#', 'E', 'E#', 'F#', 'G', 'G#', 'A', 'A#', 'B' )
-
-primary_flats    = ('C',  'Db', 'D', 'Eb', 'E',  'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B' )
-secondary_flats  = ('C',  'Db', 'D', 'Eb', 'E',  'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'Cb')
-tertiary_flats   = ('C',  'Db', 'D', 'Eb', 'Fb', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'Cb')
-
-sharps           = (primary_sharps, secondary_sharps, tertiary_sharps)
-flats            = (primary_flats,  secondary_flats,  tertiary_flats )
-
-ionian_names  = ('Ionian', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Aeolian', 'Locrian')
-
-ionian_keys   = ('C', 'C#', 'Db', 'D', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'Cb')
-melodic_keys  = ('C', 'C#', 'Db', 'D', 'Eb', 'E', 'F', 'F#',            'Ab', 'A', 'Bb', 'B',     )
-harmonic_keys = ('C', 'C#',            'Eb', 'E', 'F', 'F#',            'Ab', 'A', 'Bb', 'B',     )
-
-ionian    = ((2, 'Maj'), (2, 'Min'), (1, 'Min'), (2, 'Maj'), (2, 'Maj'), (2, 'Min'), (1, 'Dim'))
-melodic   = ((2, 'Min'), (1, 'Min'), (2, 'Aug'), (2, 'Maj'), (2, 'Maj'), (2, 'Dim'), (1, 'Dim'))
-harmonic  = ((2, 'Min'), (1, 'Dim'), (2, 'Aug'), (2, 'Min'), (1, 'Maj'), (3, 'Maj'), (1, 'Dim'))
-
+###############################################################################
+############################## HARMONY GENERATOR ##############################
+########################################################3######################
 
 # Fixed a bug where B phrygian was labeled d Cb phrygian, now this function returns the key too.
 def chords_from_key(key: str='C', mode_offset: int=0, mode=ionian, first_pass=True):
@@ -131,10 +73,29 @@ def random_chord_chart(chords):
     print(progression)
 
 
+def random_chord_numbers(count=12):
+    chordRange = chord_weights()
+    result = []
+
+    for i in range(1, count +1):
+        if i == 1 or i == count: 
+            result.append(1)
+        else: 
+            result.append(choice(chordRange))
+    print(result)
+    return result
+
+
+def chord_weights():
+    '''How many times a chord appears in the list can be a primitive for weighing the chords.
+    
+    Weights should also change based on where in the progression you are and I haven't figured that out yet.'''
+    return [1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 7]
+    #return list(range(1, 7))
+
+random_chord_numbers(12)
 ##############################################################################
-
 ############################## RHYTHM GENERATOR ##############################
-
 ########################################################3#####################
 
 
@@ -143,7 +104,7 @@ def strummer(list_int):
     result = []
     for num in list_int:
         result.append('/' * num)
-    return join(iterable=result, string=' ')
+    return ' '.join(result)
 
 
 def eighth_note_pool(size: int=8, upper: int = 4):
@@ -178,9 +139,9 @@ def random_strum_pattern(size: int = 8, upper: int = 4):
 
 # EXample uses
 
-'''
+
 pattern = random_strum_pattern()
 chords, key = random_chords()
 print([pattern, chords, key])
 random_chord_chart(chords=chords)
-'''
+

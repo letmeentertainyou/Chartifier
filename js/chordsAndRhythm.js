@@ -79,8 +79,9 @@ function randomChordChartt(chords){
 
 // These are not zero indexed so that they are
 // readable by human musicians.
-function randomChordNumbers(count, upper) {
-    var chordRange = xrange(8, 1)
+function randomChordNumbers(count=12) {
+    //var chordRange = xrange(8, 1)
+    var chordRange = chordWeights()
     var result = []
 
     for (let i of xrange(count +1, 1)) {
@@ -94,7 +95,11 @@ function randomChordNumbers(count, upper) {
     return result
 }
 
-//var random_12_chords = randomChordNumbers(12)
+// Next algorithmically generate this weighted pool, and have it change on every new chord number.
+function chordWeights() {
+    return [1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6]
+}
+
 
 /* ########## RHYTHM ##########  */
 
@@ -151,9 +156,11 @@ function writeChordsToDoc(chords, step) {
 }
 
 function writeRandomChords() {
-    var res = randomChords()
+    //var chords = res[0]
+    var res = chordsFromKey()
     var chords = res[0]
     var key = res[1]
+
     var chart = randomChordChartt(chords)
     var strum = randomStrumPattern()
     document.write(`Key: ${key}<br>`)

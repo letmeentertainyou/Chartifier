@@ -17,6 +17,9 @@ choices, and a 'New Chords' button.
 I will also add a way to save chord charts you like (maybe as a pdf?). But that feature won't be before
 version 0.2.0
 
+Since this project is pretty data heavy I will be modeling my algorithms in python first and then converting
+all the sick python builtins into js as I go.
+
 
 LICENSE
 
