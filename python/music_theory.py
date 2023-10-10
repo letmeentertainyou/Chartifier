@@ -7,8 +7,8 @@ I ended up building out all 7 main modes, and melodic/harmonic minor scales.
 I am choosing not to support double flats/sharps and keys with both types of accent.
 
 MUSIC THEORY NOTES FOR DEVELOPERS
-order of sharps  f c g d a e b
-order of flats   b e a d g c f
+order of sharps  F C G D A E B
+order of flats   B E A D G C F
                                 7   6   5  4  3  2  1  0
 7 sharp keys                    C#  F#  B  E  A  D  G  C
 7 flat keys   C  F  Bb  Eb  Ab  Db  Gb  Cb 

@@ -46,14 +46,21 @@ function randomStrumPattern(size=8, upper=4) {
 
 // I probably need to do some deep research on string padding
 function padding(strLength) {
-    if (strLength == 2) {
+
+    // This should be algorithmic
+    if (strLength == 3) {
         var spaces = "&nbsp;"
     }
-    else if (strLength == 1) {
+    else if (strLength == 2) {
         var spaces = "&nbsp;&nbsp;"
+    }
+    else if (strLength == 1) {
+        var spaces = "&nbsp;&nbsp;&nbsp;"
     }
     return spaces
 }
+
+
 function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
 
     function assembler(notes) {
@@ -78,10 +85,10 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
     }
 
     var all_notes  = [sharps, flats]
-    if (key.includes('b')) {       // skips sharps
+    if (key.includes('♭')) {       // skips sharps
         all_notes = [flats]
     }
-    if (key.includes('#')) {       // skips flats
+    if (key.includes('♯')) {       // skips flats
         all_notes = [sharps]
     }
 

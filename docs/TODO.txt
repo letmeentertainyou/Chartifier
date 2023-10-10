@@ -22,4 +22,5 @@ Added chord weighing algorithms in python and js.
 Added deepCopy and xfill to js/tools.js
 
 v0.x.0
-Added first draft string padding, the spacing is still awkward and I may need a custom font for this. I should also switch # and b for the unicode. That will be tomorrow.
+Added first draft string padding, the spacing is still awkward and I may need a custom font for this. 
+Added ♯ and ♭ characters to the document.
