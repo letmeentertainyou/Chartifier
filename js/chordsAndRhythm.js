@@ -44,6 +44,16 @@ function randomStrumPattern(size=8, upper=4) {
 
 /* ########## HARMONY ##########  */
 
+// I probably need to do some deep research on string padding
+function padding(strLength) {
+    if (strLength == 2) {
+        var spaces = "&nbsp;"
+    }
+    else if (strLength == 1) {
+        var spaces = "&nbsp;&nbsp;"
+    }
+    return spaces
+}
 function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
 
     function assembler(notes) {
@@ -57,7 +67,11 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
                      // This remaps the mode to the offset you picked
         var chosenMode = shiftSlice(mode, mode_offset)
         for (let chord of chosenMode){
-            chords.push(`${shiftedNotes[idx]} ${chord[1]}`)
+            var note = shiftedNotes[idx]
+            var spaces = padding(note.length)
+            var fullName = `${note}${spaces} ${chord[1]}`
+            
+            chords.push(fullName)
             idx += chord[0]
         }
         return [chords, lenSetFirstChars(chords)]
@@ -176,9 +190,9 @@ function writeChordsToDoc(chords, step) {
 
 function writeRandomChords() {
     // For testing in C only
-    //var res = chordsFromKey()
+    var res = chordsFromKey("Bb")
 
-    var res = randomChords()
+    //var res = randomChords()
     var chords = res[0]
     var key = res[1]
     var chart = chordChart(chords)

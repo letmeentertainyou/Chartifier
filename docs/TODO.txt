@@ -1,11 +1,11 @@
 *** Display ***
-    *pad chord strings.
+    *pad chord strings. DONE (not well)
     *center align css.
     *fix font size.
 
 
 *** Features ***
-    *weighted random Chords DONE
+    *weighted random chords DONE
     *user radio buttons for key/rhythm
     *new chords button
 
@@ -20,3 +20,6 @@ changelog:
 v0.2.0
 Added chord weighing algorithms in python and js.
 Added deepCopy and xfill to js/tools.js
+
+v0.x.0
+Added first draft string padding, the spacing is still awkward and I may need a custom font for this. I should also switch # and b for the unicode. That will be tomorrow.
