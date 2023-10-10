@@ -189,10 +189,10 @@ function writeChordsToDoc(chords, step) {
 }
 
 function writeRandomChords() {
-    // For testing in C only
-    var res = chordsFromKey("Bb")
+    // For testing padding in Bb 
+    //var res = chordsFromKey("Bb")
 
-    //var res = randomChords()
+    var res = randomChords()
     var chords = res[0]
     var key = res[1]
     var chart = chordChart(chords)
