@@ -163,7 +163,7 @@ function writeChordsToDoc(chords, step) {
         document.write(`${chords[index -1]}${rightJoin}`)
                                         // No trailing newline.
         if (index % step === 0 && index != chords.length) {
-            document.write("<br>")
+            document.write("<br><br>")
         }
     }
 }
