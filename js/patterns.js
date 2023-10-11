@@ -1,3 +1,5 @@
+'use strict'
+
 // i can dramatically reduce this file size by cutting out 14-16
 // I could also maybe have the server serve those only when requested
 // But this works for now.
