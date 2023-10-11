@@ -1,46 +1,20 @@
 'use strict'
 
-// This is pretty locked in stone for now, so I moved it to the top of the file
 /* ########## RHYTHM ##########  */
 
-// This just does my slashes for the strum pattern
-function strummer(list_int) {
-    var result = []
-    for (let x of list_int){
-        result.push('/'.repeat(x))}
-    return result.join(' ') 
-}
-
-function eighthNotePool(size, upper) {
-    var pool = []
-    for (let i of xrange(upper +1, 2)) {
-        pool.push(...xfill(intDiv(size, i) , i))
-    }
-    return pool
-}
-
-function uniqueCombos(size, pool) {
-    var combos = []
-    for (let i of xrange(pool.length, 0, -1)) {
-        for (let combo of combinations(pool, i)) {
-            if (sum(combo) == size){
-                combos.push(combo)   
-                // Grab the reverse right now
-                combos.push(Array.from(combo).reverse())
-            }
-        }
-    }
-    return removeDupeArrays(combos)
-}
-
 // Generate random size/upper for more variations on rhythm.
-function randomStrumPattern(size=8, upper=4) {
-    var pool = eighthNotePool(size, upper)
-    var combos = uniqueCombos(size, pool)
-    var result = choice(combos)
-    return strummer(result)
-}
-
+function randomStrumPattern(size=8){
+    // This just does my slashes for the strum pattern
+    function strummer(list_int) {
+        var result = []
+        for (let x of list_int) {
+            result.push('/'.repeat(x))
+        }
+        return result.join(' ') 
+    }
+    var pick = strummer(choice(strumPatterns[size]))
+    return pick
+}    
 
 /* ########## HARMONY ##########  */
 
@@ -59,7 +33,6 @@ function padding(strLength) {
     }
     return spaces
 }
-
 
 function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
 
@@ -113,7 +86,7 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
     return [[], key]
 }
 
-function randomChords() {
+function randomKey() {
     var key         = choice(ionian_keys)
     var mode_offset = choice(xrange(7))
     var mode_name   = ionian_names[mode_offset]
@@ -123,7 +96,7 @@ function randomChords() {
                                     
     // Empty arrays aren't falsey is JS so we need to check the length
     if (chords.length == 0) {
-        return randomChords()
+        return randomKey()
     }
                       
     return [chords, `${key} ${mode_name}`]
@@ -132,7 +105,7 @@ function randomChords() {
 
 /* ##### CHORD CHART MATH ##### */
 
-function chordChart(chords){
+function chartFromNumbers(chords){
     var numbers = chordNumbers(12)//
     var progression = []
 
@@ -197,12 +170,12 @@ function writeChordsToDoc(chords, step) {
 
 function writeRandomChords() {
     // For testing padding in Bb 
-    //var res = chordsFromKey("Bb")
+    var res = chordsFromKey()
 
-    var res = randomChords()
+    //var res = randomKey()
     var chords = res[0]
     var key = res[1]
-    var chart = chordChart(chords)
+    var chart = chartFromNumbers(chords)
     var strum = randomStrumPattern()
 
     document.write(`Key: ${key}<br>`)

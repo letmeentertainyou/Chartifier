@@ -1,13 +1,14 @@
+# Need to install debugger for js
+# Then click run and debug and it should work for html.
+
+
 *** Display ***
     *pad chord strings. DONE (not well)
     *center align css.
     *fix font size.
-
-
-*** Features ***
-    *weighted random chords DONE
     *user radio buttons for key/rhythm
     *new chords button
+    *weighted random chords DONE
 
 
 *** Documentation ***
@@ -21,6 +22,13 @@ v0.2.0
 Added chord weighing algorithms in python and js.
 Added deepCopy and xfill to js/tools.js
 
-v0.x.0
+
+v0.2.5
 Added first draft string padding, the spacing is still awkward and I may need a custom font for this. 
 Added ♯ and ♭ characters to the document.
+Changed the strum pattern algorithm to be more accurate and switched js to use pre-rendered 
+data this doesn't really effect the page load time but it did remove a lot of math from
+Chartifier.html, and allows me to render much larger groups of 8th notes ahead of time.
+
+
+v0.x.x

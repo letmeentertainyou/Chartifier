@@ -1,6 +1,6 @@
 'use strict'
 /* 
-With the exception of combinations and intDiv I wrote these and you can copy them into any project you desire.
+With the exception of intDiv I wrote these and you can copy them into any project you desire.
 */
 
 
@@ -52,18 +52,6 @@ function sum(iterable) {
 }
 
 
-// Stole this one in it's entirety too. JS is not fun for data stuff.
-// Turns a list of lists into a list of strings, then makes a set of those strings
-// Then turns that set back into a list to finally get the unique items from the given array
-// This should absolutely be a builtin. I will take it anywhere I need sets.
-function removeDupeArrays(iterable) {
-    let stringArray = iterable.map(JSON.stringify)
-    let uniqueStringArray = new Set(stringArray)
-    let results = Array.from(uniqueStringArray, JSON.parse)
-    return results
-}
-
-
 function arrayComp(iterableA, iterableB) {
     var A = iterableA.toString()
     var B = iterableB.toString()
@@ -93,23 +81,3 @@ function lenSetFirstChars(listOfStr) {
     return usableSet.length
 }
 
-
-// THIS IS 100% STOLEN FROM THE INTERNET
-function combinations(array, size) {
-
-    function p(t, i) {
-        if (t.length === size) {
-            result.push(t)
-            return
-        }
-        if (i + 1 > array.length) {
-            return
-        }
-        p(t.concat(array[i]), i + 1)
-        p(t, i + 1)
-    }
-
-    var result = []
-    p([], 0)
-    return result
-}

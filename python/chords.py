@@ -109,50 +109,10 @@ def chord_weights(count=12):
     return result
 
 
-##############################################################################
-############################## RHYTHM GENERATOR ##############################
-########################################################3#####################
-
-
-def strummer(list_int):
-    result = []
-    for num in list_int:
-        result.append('/' * num)
-    return ' '.join(result)
-
-
-def eighth_note_pool(size: int=8, upper: int = 4):
-    pool = []
-    for i in range(2, upper + 1):
-        pool += size // i * [i]
-    return pool
-
-
-# Converts a pool of eighth notes into a set of combos.
-def unique_combos(size: int=8, pool=[]) -> set:
-    combos = set()
-    for r in range(len(pool), 0, -1):     # What is this weird range?
-        # Take every combination for every r=i and loop through each combo
-        for combo in combinations(iterable=pool, r=r):
-            if sum(combo) == size:
-                combos.add(combo)
-                # Grab the reverse here real quick
-                combos.add(combo[::-1])
-    return combos
-
-
-# Generate random size/upper for more variations on rhythm.
-def random_strum_pattern(size: int = 8, upper: int = 4):
-    pool = eighth_note_pool(size, upper=upper)
-    combos = unique_combos(size=size, pool=pool)
-    return choice([strummer(result) for result in combos])
-
-
 ###################################################################################################
 ###################################################################################################
 
 # EXample uses
-pattern = random_strum_pattern()
 chords, key = random_chords()
 print([pattern, chords, key])
 chord_chart(chords=chords)
