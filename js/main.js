@@ -2,7 +2,7 @@
 
 /* ########## RHYTHM ##########  */
 
-// Generate random size/upper for more variations on rhythm.
+// These are defined in the file js/strumPatterns.js
 function randomStrumPattern(size=8){
     // This just does my slashes for the strum pattern
     function strummer(list_int) {
@@ -44,8 +44,8 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
         var shiftedNotes  = shiftSlice(notes, start)
         var chords        = []
         var idx           = 0
-                     // This remaps the mode to the offset you picked
         var chosenMode = shiftSlice(mode, mode_offset)
+
         for (let chord of chosenMode){
             var note = shiftedNotes[idx]
             var spaces = padding(note.length)
@@ -115,8 +115,7 @@ function chartFromNumbers(chords){
     return progression
 }
 
-// These are not zero indexed so that they are
-// readable by human musicians.
+
 function chordNumbers(count=12) {
     var result = []
     var weights = chordWeights(count)
@@ -133,6 +132,7 @@ function chordNumbers(count=12) {
     return result
 }
 
+// Rework these names
 function chordWeights(count=12) {
 
     function manip(c) {
@@ -143,6 +143,7 @@ function chordWeights(count=12) {
         return tmp
     }
 
+    // These are not zero indexed so that they are readable by human musicians.
     var start = [1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 7]
     var result = [start]
 

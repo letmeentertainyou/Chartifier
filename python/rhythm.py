@@ -1,8 +1,8 @@
 #!/bin/python3
 
+import json 
+
 from itertools import permutations
-from json import dump
-from random import choice
 
 
 def eighth_note_pool(size: int=8, upper: int=4):
@@ -23,18 +23,22 @@ def all_unique_perms(array, size=8, upper=4):
 
 
 # Go back to single json file, and max
+# Load json file and if a key exists then don't render it
+# Then write to a new file so we don't lose the old.
 def write_strums_to_json(max=12, min=4):
+    with open('../json/strumPatterns.json', 'r') as tmp:
+        old = json.load(tmp)
 
     all_eighth_notes={}
     for x in range(min, max +1):
-      
-        print(f'Finding strum patterns with {x} eighth notes.')
-        pool = eighth_note_pool(size=x, upper=4)
-        perms = list(all_unique_perms(pool, size=x, upper=x//2 +1))
-        all_eighth_notes[x] = sorted(perms)
-    name = f'../json/strumPatterns.json'
-    with open(name, 'w', encoding='utf-8') as f:
-        dump(all_eighth_notes, f)
+        if str(x) not in old:
+            print(f'Finding strum patterns with {x} eighth notes.')
+            pool = eighth_note_pool(size=x, upper=4)
+            perms = list(all_unique_perms(pool, size=x, upper=x//2 +1))
+            all_eighth_notes[x] = sorted(perms)
+    
+            with open(f'../json/newStrumPatterns{x}.json', 'w', encoding='utf-8') as f:
+                json.dump(all_eighth_notes[x], f)
 
-write_strums_to_json(max=16)
+write_strums_to_json(max=20)
 

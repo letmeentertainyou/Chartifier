@@ -31,4 +31,5 @@ data this doesn't really effect the page load time but it did remove a lot of ma
 Chartifier.html, and allows me to render much larger groups of 8th notes ahead of time.
 
 
-v0.x.x
+v0.2.6
+Cleaned up the python code so that main.py matches main.js again.
