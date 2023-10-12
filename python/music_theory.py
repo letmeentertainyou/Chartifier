@@ -31,7 +31,6 @@ Melodic G, Gb, Cb
 Harmonic Db, D, Gb, G, Cb
 '''
 
-# Modify as needed.
 __all__ = ["diatonic_notes", "sharps", "flats", "ionian_names", "ionian_keys", "melodic_keys", "harmonic_keys", "ionian", "melodic", "harmonic"]
 
 

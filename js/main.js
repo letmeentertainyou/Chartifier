@@ -12,8 +12,7 @@ function randomStrumPattern(size=8){
         }
         return result.join(' ') 
     }
-    var pick = strummer(choice(strumPatterns[size]))
-    return pick
+    return strummer(choice(strumPatterns[size]))
 }    
 
 /* ########## HARMONY ##########  */
@@ -40,6 +39,7 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
         if (!(notes.includes(key))) {
             return [[], 0]
         }
+
         var start         = notes.indexOf(key)
         var shiftedNotes  = shiftSlice(notes, start)
         var chords        = []
@@ -49,7 +49,7 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
         for (let chord of chosenMode){
             var note = shiftedNotes[idx]
             var spaces = padding(note.length)
-            var fullName = `${note}${spaces} ${chord[1]}`
+            var fullName = `${note}${spaces}${chord[1]}`
             
             chords.push(fullName)
             idx += chord[0]
@@ -69,8 +69,9 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
         for (let notes of all_notes) {
             var res = assembler(notes[index])
             var chords = res[0]
-            var chord_len = res[1] 
-            if (chord_len == 7) {
+            var chordsLength = res[1]
+
+            if (chordsLength == 7) {
                 return [chords, key]
             }
         }
@@ -106,7 +107,7 @@ function randomKey() {
 /* ##### CHORD CHART MATH ##### */
 
 function chartFromNumbers(chords){
-    var numbers = chordNumbers(12)//
+    var numbers = chordNumbers(12)
     var progression = []
 
     for (let i of numbers) {
@@ -122,10 +123,10 @@ function chordNumbers(count=12) {
 
     for (let i of xrange(weights.length)) {
         // Forcing the root chord for now.
-        if (i === 0 || i === count -1){
+        if (i === 0 || i === count -1) {
             result.push(1)
         }
-        else{ 
+        else { 
             result.push(choice(weights[i]))
         }
     }

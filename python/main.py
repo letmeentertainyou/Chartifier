@@ -1,13 +1,13 @@
 #!/bin/python3
 
-from json import load
 from random import choice
 
 from music_theory import *
+from strum_patterns import *
 
 ########## RHYTHM ##########
 
-# These are defined in the file json/strumPatterns.js
+# These are defined in the file python/strum_patterns.py
 def random_strum_pattern(size=8):
     # This just does my slashes for the strum pattern
     def strummer(list_int):
@@ -15,15 +15,8 @@ def random_strum_pattern(size=8):
         for num in list_int:
             result.append('/' * num)
         return ' '.join(result)
-    
-    with open(f'../json/strumPatterns.json', 'r', encoding='utf-8') as f:
-        strum_patterns = load(f)
 
-    # Cause json doesn't have ints but the whole API uses ints.
-    size = str(size)
-    pick = strummer(choice(strum_patterns[size]))
-    return pick
-
+    return strummer(choice(strum_patterns[size]))
 
 
 ########## HARMONY ##########
@@ -32,10 +25,8 @@ def random_strum_pattern(size=8):
 
 
 def chords_from_key(key: str='C', mode_offset: int=0, mode=ionian, first_pass=True):
-    '''Unsupported keys return an empty list.'''
 
     def assembler(notes):
-        '''This needs a seriously cleanup.'''
         if key not in notes:
             return [], 0
 
@@ -47,27 +38,31 @@ def chords_from_key(key: str='C', mode_offset: int=0, mode=ionian, first_pass=Tr
 
         # This part is less involved than the JS because there is no padding.
         for chord in chosen_mode:
-            chords.append(f'{shifted_notes[idx]} {chord[1]}')
+            note = shifted_notes[idx]
+            fullname = f'{note} {chord[1]}'
+
+            chords.append(fullname)
             idx += chord[0]
 
         return chords, len(set(i[0] for i in chords))
 
     all_notes  = [sharps, flats]
     if 'b' in key:      # skips sharps
-        all_notes.remove(sharps)
+        all_notes = [flats]
     if '#' in key:      # skips flats
-        all_notes.remove(flats)
+        all_notes = [sharps]
 
     for index in range(3):
         for notes in all_notes:
-            chords, chord_len = assembler(notes[index])
-            if chord_len == 7:
+            chords, chords_length = assembler(notes[index])
+
+            if chords_length == 7:
                 return chords, key
 
     if first_pass:
         key = diatonic_notes.get(key)
         if key:
-            return chords_from_key(key=key, mode_offset=mode_offset, mode=mode, first_pass=False)
+            return chords_from_key(key, mode_offset, mode, False)
 
     return [], key
 
@@ -76,7 +71,7 @@ def random_key():
     key         = choice(ionian_keys)
     mode_offset = choice(range(7))
     mode_name   = ionian_names[mode_offset]
-    chords, key = chords_from_key(key=key, mode=ionian, mode_offset=mode_offset)
+    chords, key = chords_from_key(key, mode_offset, ionian)
 
     if not chords:
         return random_key()
@@ -93,7 +88,6 @@ def chart_from_numbers(chords):
     for i in numbers:
         progression.append(chords[i -1])
 
-    print(progression)
     return progression
 
 def chord_numbers(count=12):
@@ -105,6 +99,7 @@ def chord_numbers(count=12):
             result.append(1)
         else: 
             result.append(choice(weights[i]))
+
     return result
 
 
@@ -121,7 +116,8 @@ def chord_weights(count=12):
         magic_number = choice(c)
         tmp = list(c)
         tmp += 2 * [magic_number]
-        return tuple(sorted(tmp))
+        tmp.sort()
+        return tuple(tmp)
 
     # These are not zero indexed so that they are readable by human musicians.
     start = (1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 7)
@@ -129,6 +125,7 @@ def chord_weights(count=12):
 
     for x in range(count -1):
          result.append(manip(result[x]))
+
     return result
 
 
@@ -138,5 +135,5 @@ def chord_weights(count=12):
 strum = random_strum_pattern()
 chords, key = random_key()
 print([strum, chords, key])
-chart_from_numbers(chords=chords)
+print(chart_from_numbers(chords))
 
