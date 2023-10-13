@@ -33,3 +33,11 @@ Chartifier.html, and allows me to render much larger groups of 8th notes ahead o
 
 v0.2.6
 Cleaned up the python code so that main.py matches main.js again.
+
+
+v0.3.0
+O(N! * length) -> O(N)
+Wrote a brand new algorithm for calculating strum patterns which is basically infinitely faster than 
+using permutations. What used to take 70mins - uncountable time now takes a single millisecond. While this 
+change doesn't effect the front end, I was really motivated to solve the problem. I could easily use 
+this algorithm in the front end again, and generate truly custom rhythmic options.
