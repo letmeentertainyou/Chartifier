@@ -1,4 +1,4 @@
-Chartifier v0.2.6
+Chartifier v0.3.1
 
 Randomly generates a chord chart and strum pattern for you to play.
 
@@ -29,12 +29,7 @@ free to grab any of them for other projects. The tools that are stolen from the 
 
 LICENSE
 
-    This project is not licensed because it is mostly stolen code and I'm not going
-    to relicense someone else's code. You can use this project in any way you want so 
-    long as you also don't distribute/relicense the code. It would be illegal to relicense
-    code you do not own.
-
-    I did write 100% of the python so you can do something with that if you want.
+    I had to write a custom permutations algorithm, so now the only borrowed code is random.js so I will double check what license that user, and then pick a compatible license for this project.
 
 
 TESTING

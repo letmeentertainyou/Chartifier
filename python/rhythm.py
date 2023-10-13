@@ -19,6 +19,9 @@ import json
 
 # This could be recursive but I'm not going to rewrite it.
 def rhythm_permutations(start=[2, 3, 4], size=8):
+    # If I do upper -1 and then append a list of 2s to the end, we get even more speed.
+    # Only if size is even though.
+
     upper = size // 2
     digits = [[n] for n in start]
     def worker():
@@ -26,7 +29,10 @@ def rhythm_permutations(start=[2, 3, 4], size=8):
             for digit in start:
                 for tail in digits:
                     if len(tail) == length:
-                        digits.append([digit] + tail)
+                        slice = [digit] + tail
+                        # This gave a 35x speed up.
+                        if sum(slice) <= size:
+                            digits.append(slice)
 
     worker()
 
@@ -50,6 +56,6 @@ def write_strums_to_json(max=12, min=4):
     with open(f'../json/newStrumPatterns.json', 'w', encoding='utf-8') as f:
         json.dump(all_eighth_notes, f)
 
-write_strums_to_json(max=17)
+write_strums_to_json(max=30)
 
 
