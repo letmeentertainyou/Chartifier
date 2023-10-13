@@ -1,39 +1,37 @@
-Chartifier v0.3.1
+Chartifier v0.3.2
 
 Randomly generates a chord chart and strum pattern for you to play.
 
 Chartifier is heavily inspired by www.michaelfogleman.com/phrases/ which is an incredible writing 
 tool I love to use when writing songs. However, sometimes I want some musical inspiration as well. 
-So I made a Random Chord Chart Generator complete with random strum patterns too. The strum patterns 
-are not displayed on html page yet but all of the tricky math is implemented.
+So I made a random chord chart generator complete with random strum patterns too. 
 
-Chartifier.html generates a new random chord chart every time you load it. v0.1.0 is basically a 
-demo site, I will polish the html/css as I go forward. Right now it's just the 12 bar blues in a 
-random key but I'm going to expand the random harmony algorithms after launch.
+I started with the strum patterns and in fact the math for random strum patterns is much more intense 
+than the math for random chords but I consider rhythm and harmony equally important to the generation
+of random music.
 
-(Now Chartifier generates random chords)
+Chartifier.html generates a new random chord chart every time you load it. I am planning on adding
+some nice features to the UI like radio buttons to select what key you want.
 
-Starting with v0.2.0 I will be backing up old versions of the chord algorithms so that any users
-who prefer the chords of an older version can use it. The backups won't show up until version 0.3.0
-ships to github.
-
-***
-
-I'm also going to add some radio buttons so users can select any key they want, as well as rhythmic
-choices, and a 'New Chords' button. I will also add a way to save chord charts you like (maybe as a pdf?).
-
-Since this project is pretty data heavy I will be modeling my algorithms in python first and then converting
-all the sick python builtins into js as I go. I'm compiling tools like xrange and deepCopy in js/tools.js feel
-free to grab any of them for other projects. The tools that are stolen from the internet are clearly marked. 
+There are aspects of this project that are pretty data heavy and have been originally written in python
+so I am keeping a copy of the python source in the github repo, but all you need to run Chartifier locally
+is Chartifier.html and the js folder.
 
 
 LICENSE
 
-    I had to write a custom permutations algorithm, so now the only borrowed code is random.js so I will double check what license that user, and then pick a compatible license for this project.
+This project is licensed under MIT to match the license of https://github.com/oittaa/random-browser-js\
+which is the lovely script that enables Chartifier to exist. I personally prefer a more copyleft style license 
+like GPL, but I am happy to share this project under MIT so that other cool music projects can be created.
+
+The work I have already done for rhythm and harmony generation should be enough to help a lot of other music
+generation projects get off the ground. If for instance you wanted to write a midi program to play these rhythms 
+or chords, this code gets you 90% of the way there. So please enjoy using the Chartifier code in any projects 
+you are inspired to create! 
 
 
 TESTING
 
-    I'm not writing any tests at the moment because I don't have a need to test anything.
-    I will make sure to document major changes to the algorithms so that if you prefer an
-    older version of Chartifier they will be available.
+I'm not writing any tests at the moment because I don't have a need to test anything.
+I will make sure to document major changes to the harmony algorithms so that if you prefer an
+older version of Chartifier they will be available.

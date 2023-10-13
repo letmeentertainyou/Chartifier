@@ -55,3 +55,8 @@ user    0m1.459s
 sys     0m0.049s
 
 35X time improvement.
+
+v0.3.2
+Updated LICENSE to MIT.
+Rewrote README
+Cleaned up python/rhythm.py a bit. 

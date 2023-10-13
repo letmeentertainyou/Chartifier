@@ -1,11 +1,19 @@
+/*  
+This file comes from:
+https://github.com/oittaa/random-browser-js\
+
+and is licensed under MIT here:
+https://github.com/oittaa/random-browser-js/blob/main/LICENSE
+
+Copyright (c) 2022 oittaa
+
+tokenUrlsafe, tokenHex and export are commented out but not removed.
+*/
 'use strict'
 
 const BITS_MAX = 48
 const DEFAULT_ENTROPY = 32
 const RAND_MAX = 0xFFFF_FFFF_FFFF
-// All modifications are commented out but not removed.
-// tokenUrlsafe and tokenHex are disabled,
-// And export {} is also disabled.
 
 /**
  * Return the integer quotient of the division of a by b.
