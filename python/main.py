@@ -129,8 +129,6 @@ def chord_weights(count=12):
     return result
 
 
-
-
 ####### EXAMPLES #######
 strum = random_strum_pattern()
 chords, key = random_key()
