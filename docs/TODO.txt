@@ -66,3 +66,19 @@ v0.3.5
 Finally added detailed doc strings on every python/js file.
 Updated README again.
 Made a src dir for the browser relevant code.
+
+v0.3.6
+Another algo speed up for rhythm.py. If the size is even, and sum_slice == size -1,
+and two is the smallest int in start then we can continue here.
+
+OLD for size = 35
+real    0m13.657s
+user    0m13.474s
+sys     0m0.179s
+
+NEW for size = 35
+real    0m11.421s
+user    0m11.302s
+sys     0m0.118s
+
+Sick two second time save, sweet!
