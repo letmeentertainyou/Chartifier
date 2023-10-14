@@ -1,4 +1,3 @@
-'use strict'
 /*
 I ended up building out all 7 main modes, and melodic/harmonic minor scales.
 I am choosing not to support double flats/sharps and keys with both types of accent.
@@ -26,6 +25,8 @@ Melodic G, G♭, C♭
 
 Harmonic D♭, D, G♭, G, C♭
 */
+
+'use strict'
 
 
 var diatonic_notes = { 'C♯': 'D♭', 'F♯': 'G♭', 'B': 'C♭', 'D♭': 'C♯', 'G♭': 'F♯', 'C♭': 'B' };

@@ -1,6 +1,6 @@
 /*  
 This file comes from:
-https://github.com/oittaa/random-browser-js\
+https://github.com/oittaa/random-browser-js/
 
 and is licensed under MIT here:
 https://github.com/oittaa/random-browser-js/blob/main/LICENSE
@@ -9,6 +9,7 @@ Copyright (c) 2022 oittaa
 
 tokenUrlsafe, tokenHex and export are commented out but not removed.
 */
+
 'use strict'
 
 const BITS_MAX = 48

@@ -1,18 +1,21 @@
-# Need to install debugger for js
-# Then click run and debug and it should work for html.
-
+The rest of these changes are going to require taking some web dev courses, so
+updates may slow down before I get the html looking nicer. I hope to finish this stuff soon.
 
 *** Display ***
-    *pad chord strings. DONE (not well)
-    *center align css.
-    *fix font size.
-    *user radio buttons for key/rhythm
-    *new chords button
-    *weighted random chords DONE
+    *fix font size.           DONE
+    *weighted random chords   DONE
+    *pad chord strings.       DONE (not well)
 
+    *new chords button
+    *radio buttons for key/rhythm
+    *make page dynamically flexible.
+    *mobile support (probably works now but needs testing)
 
 *** Documentation ***
-    *doc strings
+    *doc strings              DONE
+
+
+*** Toolchain ***
     *add js linting tools
     *add pre_commit hook
 
@@ -22,7 +25,6 @@ v0.2.0
 Added chord weighing algorithms in python and js.
 Added deepCopy and xfill to js/tools.js
 
-
 v0.2.5
 Added first draft string padding, the spacing is still awkward and I may need a custom font for this. 
 Added ♯ and ♭ characters to the document.
@@ -30,15 +32,13 @@ Changed the strum pattern algorithm to be more accurate and switched js to use p
 data this doesn't really effect the page load time but it did remove a lot of math from
 Chartifier.html, and allows me to render much larger groups of 8th notes ahead of time.
 
-
 v0.2.6
 Cleaned up the python code so that main.py matches main.js again.
 
-
 v0.3.0
-O(N! * length) -> O(N)
+O(N! * M) -> O(Nᴹ)
 Wrote a brand new algorithm for calculating strum patterns which is basically infinitely faster than 
-using permutations. What used to take 70mins - uncountable time now takes a single millisecond. While this 
+using permutations. What used to take 70mins to uncountable time now takes under a second. While this 
 change doesn't effect the front end, I was really motivated to solve the problem. I could easily use 
 this algorithm in the front end again, and generate truly custom rhythmic options.
 
@@ -49,6 +49,7 @@ OLD for size = 30
 real    0m56.847s
 user    0m53.768s
 sys     0m3.073s
+
 NEW for size = 30
 real    0m1.507s
 user    0m1.459s
@@ -60,3 +61,8 @@ v0.3.2
 Updated LICENSE to MIT.
 Rewrote README
 Cleaned up python/rhythm.py a bit. 
+
+v0.3.5
+Finally added detailed doc strings on every python/js file.
+Updated README again.
+Made a src dir for the browser relevant code.

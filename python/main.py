@@ -5,12 +5,19 @@ from random import choice
 from music_theory import *
 from strum_patterns import *
 
-########## RHYTHM ##########
+# RHYTHM #
 
-# These are defined in the file python/strum_patterns.py
 def random_strum_pattern(size=8):
-    # This just does my slashes for the strum pattern
+    '''
+    Strum patterns are defined in the file js/strumPatterns.js, this function randomly
+    picks a strum pattern and makes it human readable. If size isn't a valid strumPatterns
+    key things will crash. 
+    '''
+
     def strummer(list_int):
+        '''
+        This replaces ints with slashes for the strum pattern.
+        '''
         result = []
         for num in list_int:
             result.append('/' * num)
@@ -19,14 +26,29 @@ def random_strum_pattern(size=8):
     return strummer(choice(strum_patterns[size]))
 
 
-########## HARMONY ##########
+# HARMONY #
 
 # String padding function has been omitted from the Python source because it's built into the language.
 
 
 def chords_from_key(key: str='C', mode_offset: int=0, mode=ionian, first_pass=True):
+    '''
+    This function takes a key, a mode_offset(0 to 6) and a mode, and tries to
+    load a set of keys. If it fails on the first pass it will try again with
+    a diatonic alternative for the key. So it might try Gb maj if F# fails (F# won't fail)]
+
+    With the data in musicTheory.js this function is extremely capable of finding lots of 
+    weird keys. I don't even know what the modes for melodic/harmonic mind are called but this
+    supports most of them.
+    '''
 
     def assembler(notes):
+        '''
+        This function takes a give set of notes, and attempts to build some chords out of it
+        the outer function confirms that the lenSetFirstChars assembler returns is 7. 
+        
+        assembler is called until it returns a seven or there are no more note pools to draw from.
+        '''
         if key not in notes:
             return [], 0
 
@@ -36,7 +58,6 @@ def chords_from_key(key: str='C', mode_offset: int=0, mode=ionian, first_pass=Tr
         idx: int      = 0
         chosen_mode = mode[mode_offset:] + mode[:mode_offset]
 
-        # This part is less involved than the JS because there is no padding.
         for chord in chosen_mode:
             note = shifted_notes[idx]
             fullname = f'{note} {chord[1]}'
@@ -68,6 +89,11 @@ def chords_from_key(key: str='C', mode_offset: int=0, mode=ionian, first_pass=Tr
 
 
 def random_key():
+    '''
+    Picks a random key and random variation of the ionian mode (harmonic/melodic could be
+    used instead), then loads up the chords from that key/mode. If randomKey gets an invalid
+    key for some reason (rare), it just keeps trying until a valid key is found.
+    '''
     key         = choice(ionian_keys)
     mode_offset = choice(range(7))
     mode_name   = ionian_names[mode_offset]
@@ -79,9 +105,12 @@ def random_key():
     return chords, f"{key} {mode_name}"
 
 
-####### CHORD CHART MATH #######
+# RANDOM CHORD CHART MATH #
 
 def chart_from_numbers(chords):
+    '''
+    This generates some chord numbers and then applies them to a given set of chords.
+    '''
     numbers = chord_numbers(12)
     progression = []
 
@@ -91,6 +120,11 @@ def chart_from_numbers(chords):
     return progression
 
 def chord_numbers(count=12):
+    '''
+    This chooses x chords at random, and generates some additional weighting info for those chords too.
+    This function also forces the first and last chord of a progression to be the one chord. This is a
+    common music theory practice but it can be removed for more random charts.
+    '''
     result = []
     weights = chord_weights(count=count)
 
@@ -103,18 +137,22 @@ def chord_numbers(count=12):
     return result
 
 
-# Rework these names
 def chord_weights(count=12):
-    '''How many times a chord appears in the list can be a primitive for weighing the chords.
+    '''
+    This generates some random weights for whatever length of chord chart you want.
+    This is just my first go at this math and I won't change it until the website is a
+    bit nicer so I can freeze this version of the algorithm.
+
+    There are many flaWs with this version, namely that a chord can appear too many times
+    in a row. But actually that needs to be solved in the function above.
+    '''
     
-    Weights should also change based on where in the progression you are and I haven't figured that out yet.
-    
-    Also if a chord appears x times in a row it shouldn't appear again.'''
-    
-    def manip(c):
-        '''Pick random number and double it's appearances.'''
-        magic_number = choice(c)
-        tmp = list(c)
+    def manip(prev):
+        '''
+        Picks a number from the current set of weights and adds two more of that number.
+        '''
+        magic_number = choice(prev)
+        tmp = list(prev)
         tmp += 2 * [magic_number]
         tmp.sort()
         return tuple(tmp)

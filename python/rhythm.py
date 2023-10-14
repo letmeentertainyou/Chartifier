@@ -50,9 +50,25 @@ def write_strums_to_json(max=12, min=4):
         print(f'Finding strum patterns with {x} eighth notes.')
         all_eighth_notes[x] = sorted(rhythm_permutations(size=x))
 
-    with open(f'../json/newStrumPatterns.json', 'w', encoding='utf-8') as f:
+    with open(f'json/newStrumPatterns.json', 'w', encoding='utf-8') as f:
         json.dump(all_eighth_notes, f)
 
 write_strums_to_json(max=30)
 
-
+# It takes about 90 seconds to generate max=40, and part of that time is writing the json to a file. 
+# That file is 200 megs and my computer can't open it. But this algorithm is still very useful 
+# because it would have taken days to calculate max=20 with heap's permutation algo.
+#
+# I use this generator for groupings of eighth notes but it could be applied to quarter notes or 
+# whole notes or some kind of subdivision. You can use some basic division/multiplication to mix
+# for instance eighth and quarter note patterns. This is left as an exorcise to the reader.
+# 
+# You would be hard pressed to come up with a human playable rhythm that can't be expressed with max=30. 
+# In fact, I'd be very excited to see human playable strum patterns or rhythms not represented 
+# by max=30, submit it as a bug or pull request. I'd love to see what I'm missing here.
+#
+# This work was done with the intention of benefiting human musicians, and their sensibilities. Which
+# is why I'm only interested in patterns that a human can play but are not represented by max=30.
+# A computer could play any arbitrary pattern size without worrying about feeble human memory.
+#
+# Side note: [2, 3, 3, 2, 2, 3] is a certified banger, use it in your next track!
