@@ -1,6 +1,6 @@
 /*
 The rhythm_permutations function was written in Pyhton by me and translated to Go here:
-]
+
 https://www.codeconvert.ai/python-to-golang-converter
 
 Thank you codeconvert.ai!
@@ -128,6 +128,7 @@ func writeStrumsToJSON(max, min int) {
 func main() {
 	writeStrumsToJSON(10, 4)
 }
+
 
 /*
 It takes about 90 seconds to generate max=40, and part of that time is writing the json to a file. 
