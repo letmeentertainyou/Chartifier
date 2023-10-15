@@ -22,11 +22,8 @@ def rhythm_permutations(start=[2, 3, 4], size=8):
     the computer does by two different factors. Both the max length of the
     input can be much smaller and the length of desired output is much smaller.
     Also we are calculating all the different length perms in one go, instead of x different
-    times. I took O(N! * length) down to basically O(N)
-
-    This could be recursive but I'm not going to rewrite it.
-    I tried to use upper -1 so that the list that only contains 2s doesn't need to be calculated
-    but it didn't improve the time at all, and it made the code uglier, so I removed it.'''
+    times. I took O(N! * M) down to basically O(Nᴹ)
+    '''
 
     upper = size // 2
     digits = [[dig] for dig in start]
