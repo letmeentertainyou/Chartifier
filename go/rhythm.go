@@ -6,10 +6,10 @@ https://www.codeconvert.ai/python-to-golang-converter
 Thank you codeconvert.ai!
 
 This is now a fully working implementation of rhythm.py including the
-JSON output, the only issue is that the JSON go generates sorts the keys differently.
+JSON output, the only issue is that the JSON Go generates sorts the keys differently.
 10, 4, 5, 6, 7, 8, 9 etc
 
-Which will make testing if the python and go generate the same data tricky. My plan is to
+Which will make testing if the python and Go generate the same data tricky. My plan is to
 write a python script that loads the Go generated JSON object and rewrites it correctly sorted.
 It feels weak to need another langauge as a crutch like that but I can't find any other way to
 solve the problem in native Go.
@@ -24,24 +24,24 @@ package main
 
 
 import (
-	"encoding/json"
-	"fmt"
-	"os"
+    "encoding/json"
+    "fmt"
+    "os"
 )
 
 
 // The ai basically wrote this function twice, I just extracted it.
 func sum(iterable[]int) int {
-	result := 0
-	for _, num := range iterable {
-		result += num
-	}
-	return result
+    result := 0
+    for _, num := range iterable {
+        result += num
+    }
+    return result
 }
 
 
 func rhythmPermutations(start[]int, size int) [][]int {
-	/*
+    /*
     This can calculate size=20 in 0m0.103s where as heap_perm would take hours to calculate size=18
 
     The premise is that I want every permutation before a certain length
@@ -56,78 +56,78 @@ func rhythmPermutations(start[]int, size int) [][]int {
     input can be much smaller and the length of desired output is much smaller.
     Also we are calculating all the different length perms in one go, instead of x different
     times. I took O(N! * M) down to basically O(Nᴹ)
-	*/
+    */
 
-	// Go is so elegant with int division
-	upper := size / 2
-	digits := [][]int{}
-	
-	// This code converter is very clever and I love it a lot.
-	for _, dig := range start {
-		digits = append(digits, []int{dig})
-	}
+    // Go is so elegant with int division
+    upper := size / 2
+    digits := [][]int{}
+    
+    // This code converter is very clever and I love it a lot.
+    for _, dig := range start {
+        digits = append(digits, []int{dig})
+    }
 
-	for length := 1; length < upper; length++ {
-		for _, digit := range start {
-			for _, tail := range digits {
-				if len(tail) == length {
-					slice := append([]int{digit}, tail...)
-					sum_slice := sum(slice)
+    for length := 1; length < upper; length++ {
+        for _, digit := range start {
+            for _, tail := range digits {
+                if len(tail) == length {
+                    slice := append([]int{digit}, tail...)
+                    sum_slice := sum(slice)
 
-					if size%2 == 0 && sum_slice == size-1 {
-						continue
-					}
+                    if size%2 == 0 && sum_slice == size-1 {
+                        continue
+                    }
 
-					if sum_slice <= size {
-						digits = append(digits, slice)
-					}
-				}
-			}
-		}
-	}
+                    if sum_slice <= size {
+                        digits = append(digits, slice)
+                    }
+                }
+            }
+        }
+    }
 
-	// This could be a func called getSums.
-	result := [][]int{}
-	for _, z := range digits {
-		if sum(z) == size {
-			result = append(result, z)
-		}
-	}
+    // This could be a func called getSums.
+    result := [][]int{}
+    for _, z := range digits {
+        if sum(z) == size {
+            result = append(result, z)
+        }
+    }
 
-	return result
+    return result
 }
 
 
 // I used the the same ai to convert this too!
 func writeStrumsToJSON(max, min int) {
-	start := []int{2, 3, 4}
+    start := []int{2, 3, 4}
 
-	// The ai did great here!
-	allEighthNotes := make(map[int][][]int)
-	
-	for size := min; size <= max; size++ {
-		fmt.Printf("Finding strum patterns with %d eighth notes.\n", size)
-		allEighthNotes[size] = rhythmPermutations(start, size)
+    // The ai did great here!
+    allEighthNotes := make(map[int][][]int)
+    
+    for size := min; size <= max; size++ {
+        fmt.Printf("Finding strum patterns with %d eighth notes.\n", size)
+        allEighthNotes[size] = rhythmPermutations(start, size)
     }
 
-	// The AI randomly used MarshalIndent but close enough
-	file, err := json.Marshal(allEighthNotes)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+    // The AI randomly used MarshalIndent but close enough
+    file, err := json.Marshal(allEighthNotes)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
 
-	// The ai tried to use io/ioutil but didn't import it.
-	// After I imported io/ioutil VScode told me to use os instead.
-	err = os.WriteFile("json/newStrumPatterns.json", file, 0644)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+    // The ai tried to use io/ioutil but didn't import it.
+    // After I imported io/ioutil VScode told me to use os instead.
+    err = os.WriteFile("json/newStrumPatterns.json", file, 0644)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
 }
 
 func main() {
-	writeStrumsToJSON(10, 4)
+    writeStrumsToJSON(10, 4)
 }
 
 
