@@ -59,31 +59,35 @@ func rhythmPermutations(start[]int, size int) [][]int {
     */
 
     // Go is so elegant with int division
-    upper := size / 2
+    upper  := size / 2
+	// It's weird that I need this data twice but I genuinely do
+	old    := [][]int{}
     digits := [][]int{}
     
     // This code converter is very clever and I love it a lot.
-    for _, dig := range start {
-        digits = append(digits, []int{dig})
+    for _, i := range start {
+		old    = append(old,    []int{i})
+        digits = append(digits, []int{i})
     }
 
     for length := 1; length < upper; length++ {
+		tmp := [][]int{}
         for _, digit := range start {
-            for _, tail := range digits {
-                if len(tail) == length {
-                    slice := append([]int{digit}, tail...)
-                    sum_slice := sum(slice)
+            for _, tail := range old {
+					slice := append([]int{digit}, tail...)
+					sum_slice := sum(slice)
 
-                    if size%2 == 0 && sum_slice == size-1 {
-                        continue
-                    }
+					if size%2 == 0 && sum_slice == size-1 {
+						continue
+					}
 
-                    if sum_slice <= size {
-                        digits = append(digits, slice)
-                    }
-                }
+					if sum_slice <= size {
+						tmp = append(tmp, slice)
+					}
             }
         }
+		old = tmp
+		digits = append(digits, old...)
     }
 
     // This could be a func called getSums.
@@ -93,7 +97,6 @@ func rhythmPermutations(start[]int, size int) [][]int {
             result = append(result, z)
         }
     }
-
     return result
 }
 
@@ -127,7 +130,7 @@ func writeStrumsToJSON(max, min int) {
 }
 
 func main() {
-    writeStrumsToJSON(10, 4)
+	writeStrumsToJSON(10, 4)
 }
 
 

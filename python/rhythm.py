@@ -26,22 +26,25 @@ def rhythm_permutations(start=[2, 3, 4], size=8):
     '''
 
     upper = size // 2
+    # It's weird that I need this data twice but I genuinely do
+    old    = [[dig] for dig in start]
     digits = [[dig] for dig in start]
-    
-    for length in range(1, upper):
-        for digit in start:
-            for tail in digits:
-                if len(tail) == length:
-                    slice = [digit] + tail
-                    sum_slice = sum(slice)
-                    # If the size is even, and sum_slice == size -1, and two is the smallest int
-                    # in start then we can continue here.
-                    if (size % 2 == 0 and sum_slice == size -1):
-                        continue
 
-                    # This gave an additional 35x speed up.
-                    if sum_slice <= size:
-                        digits.append(slice)
+    for _ in range(1, upper):
+        tmp = []
+        for digit in start:
+            for tail in old:
+                slice = [digit] + tail
+                sum_slice = sum(slice)
+
+                if (size % 2 == 0 and sum_slice == size -1):
+                    continue
+
+                if sum_slice <= size:
+                    tmp.append(slice)
+
+        old = tmp
+        digits += old
 
     return [z for z in digits if sum(z) == size]
 
@@ -52,10 +55,10 @@ def write_strums_to_json(max=12, min=4):
         print(f'Finding strum patterns with {x} eighth notes.')
         all_eighth_notes[x] = sorted(rhythm_permutations(size=x))
 
-    with open(f'json/newStrumPatterns01.json', 'w', encoding='utf-8') as f:
+    with open(f'json/newStrumPatterns.json', 'w', encoding='utf-8') as f:
         json.dump(all_eighth_notes, f)
 
-write_strums_to_json(max=35)
+write_strums_to_json(max=30)
 
 # It takes about 90 seconds to generate max=40, and part of that time is writing the json to a file. 
 # That file is 200 megs and my computer can't open it. But this algorithm is still very useful 
