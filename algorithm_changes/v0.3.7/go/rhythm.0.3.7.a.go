@@ -45,7 +45,7 @@ func rhythmPermutations(start[]int, size int) [][]int {
     This can calculate size=20 in 0m0.103s where as heap_perm would take hours to calculate size=18
 
     The premise is that I want every permutation before a certain length
-    Including duplicate results. The way to achieve duplicate results with permutations
+    Including duplicate digits. The way to achieve duplicate digits with permutations
     requires input that looks like this [2, 2, 2, 2, 3, 3, 4, 4] and it can only have
     as many copies of any digit as are in your input, and the max length is huge.
 
@@ -60,47 +60,52 @@ func rhythmPermutations(start[]int, size int) [][]int {
 
     // Go is so elegant with int division
     upper  := size / 2
-
+	// It's weird that I need this data twice but I genuinely do
 	old    := [][]int{}
-    results := [][]int{}
+    digits := [][]int{}
     
+    // This code converter is very clever and I love it a lot.
     for _, i := range start {
 		old    = append(old,    []int{i})
-		if i == size {
-        	results = append(results, []int{i})
-		}
+        digits = append(digits, []int{i})
     }
 
     for length := 1; length < upper; length++ {
 		tmp := [][]int{}
         for _, digit := range start {
             for _, tail := range old {
-					perm := append([]int{digit}, tail...)
-					sum_perm := sum(perm)
-
-					if sum_perm == size {
-						results = append(results, perm)
+					slice := append([]int{digit}, tail...)
+					sum_slice := sum(slice)
+					// remove even check for speedup.
+					if size%2 == 0 && sum_slice == size-1 {
 						continue
 					}
 
-					if sum_perm == size-1 {
-						continue
-					}
-
-					if sum_perm < size {
-						tmp = append(tmp, perm)
+					if sum_slice <= size {
+						tmp = append(tmp, slice)
 					}
             }
         }
 		old = tmp
+		digits = append(digits, old...)
     }
-    return results
+
+    // This could be a func called getSums.
+    result := [][]int{}
+    for _, z := range digits {
+        if sum(z) == size {
+            result = append(result, z)
+        }
+    }
+    return result
 }
 
 
 // I used the the same ai to convert this too!
 func writeStrumsToJSON(max, min int) {
     start := []int{2, 3, 4}
+
+    // The ai did great here!
     allEighthNotes := make(map[int][][]int)
     
     for size := min; size <= max; size++ {
@@ -108,12 +113,16 @@ func writeStrumsToJSON(max, min int) {
         allEighthNotes[size] = rhythmPermutations(start, size)
     }
 
+
+    // The AI randomly used MarshalIndent but close enough
     file, err := json.Marshal(allEighthNotes)
     if err != nil {
         fmt.Println(err)
         return
     }
 
+    // The ai tried to use io/ioutil but didn't import it.
+    // After I imported io/ioutil VScode told me to use os instead.
     err = os.WriteFile("json/unsortedStrumPatterns.json", file, 0644)
     if err != nil {
         fmt.Println(err)

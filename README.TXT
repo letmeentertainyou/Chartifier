@@ -1,4 +1,4 @@
-Chartifier v0.3.7
+Chartifier v0.4.0
 
 Randomly generates a chord chart and strum pattern for you to play.
 

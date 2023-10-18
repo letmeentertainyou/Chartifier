@@ -71,47 +71,14 @@ v0.3.6
 Another algo speed up for rhythm.py. If the size is even, and sum_slice == size -1,
 and two is the smallest int in start then we can continue here.
 
-OLD for size = 35
-real    0m13.657s
-user    0m13.474s
-sys     0m0.179s
-
-NEW for size = 35
-real    0m11.421s
-user    0m11.302s
-sys     0m0.118s
-
-Sick two second time save, sweet!
-
 v0.3.7
 Converted the 0.3.6 algo to Go!
 Wrote a new algo that should be faster
 
-OLD 
-
-max=35
-real    0m11.332s
-user    0m11.206s
-sys     0m0.124s
-
-max=40
-real    1m28.123s
-user    1m26.670s
-sys     0m1.050s
-
-NEW 
-
-max=35
-real    0m9.687s
-user    0m9.533s
-sys     0m0.153s
-
-max=40
-real    1m13.657s
-user    1m12.262s
-sys     0m1.115s
-
-Boom! Another two seconds on max=35, and the time saved increased to 14 seconds for max=40.
-I had to make the code a big uglier to achieve this change. Basically I was looping through
-a lot more data than I needed to going through digits, so now I only loop through the previous
-set as of digits (old). It is technically faster but maybe not worth the added effort.
+v0.4.0
+Added docs/benchmark_data.txt to track algorithm changes and the resulting times because
+that data was clogging up the changelog. I also added a algorithm_changes directory to root
+that tracks the actual code described in benchmark_data.txt. I wanted to archive the failed
+algorithms too so that I don't retread old ground.
+I did end up with a working version of the v0.3.7 algorithm called v0.3.7d which is now implemented
+in go/rhyhtm.go and python/rhythm.py

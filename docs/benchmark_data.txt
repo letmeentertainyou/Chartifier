@@ -1,0 +1,246 @@
+Now Python and Go have the same algorithm and with a test run of max=35 Go was about
+6.5 times faster than Python. Since I have confirmed the outputs of both languages are
+identical, I am doing more agressive benchmarking in this file. max is the variable that
+determines the intensity of the run.
+
+RUN 1
+
+I tried to run max=50 but it ate all my ram, my memory maxed out at max=45 (15.5 gb), I let it run to
+47 but decided 50 was impossible. So I reran python at max=45 to time it. These first tests involve
+storing all 45 runs in ram and writing it to a JSON file. For higher numbers I will only do a single
+run at a high max and I will not write it to file.
+
+I will compare it against go at max=45 but if there is any memory left then Go might get a higher number too.
+
+I could write these to individual files one at a time the way I did with the permutations algo, and that would allow me to work with a lot more memory.
+
+I could also just do a single run at max=x, and time that. It's the JSON writing that makes this hard to time.
+
+Final file size 1.7gb, the fiften gigs of ram is because of all the unfiltered numbers that aren't added to the
+list yet. (or maybe not, idk.)
+
+Gonna get a Go time, and then I'm going to do this without file writing, and just running one time through
+the function with a high max.
+
+python  max=45
+real	8m34.559s
+user	8m26.177s
+sys	    0m7.786s
+
+
+go      max=45
+real	0m50.106s
+user	1m0.291s
+sys	0m10.564s
+
+
+Go is still easily 8 times faster than Python. Nice!
+
+While Go was faster, Go only wrote 27Mb to the file. I know go was writing 200 megs on runs to
+40 so I'm not sure what broke here. Either the algorithms aren't the same or Go hit some kind
+of garbage collection that destroyed my data.
+
+Either way, if I wrote individual runs to file instead of 45 runs all at once, I would probably be fine.
+
+I'm going try that method now!
+
+
+RUN 2
+
+If Go gets the file wrong here I will consider it's speed benefits irrevelant to Python's stability.
+
+First try was max=55 but Python and Go failed to dump the whole object for max=55, Python chose not to even write a file,
+and Go only dumped 800Kb. Trying again with Max=50.
+
+Python with max=50 was killed by Linux which is funny because max=55 was allowed to finish or so thoroughly
+corrupted things that linux couldn't even politely tell me the task failed. But the terminal didn't crash
+so idk. I guess I will just try max -1 til I get a sucessful run. This is making me think that my previous max=45 Python run was also a failure. This is very large data so I understand that.
+
+Go was also killed at max=50 but three times faster than the Python was.
+
+
+max=49 was also killed and I'm tired of caring tonight. Interesting stuff though. both programs
+seem to run fine at max=35, but my computer can't even open the output files anyways. I think max=20
+is more than enough for music. Still, maybe I can refine the algorithms memory use so that it won't get killed.
+
+It's still worth noting that a regular permutations algorithm would have been killed long before max=20.
+
+
+
+RUN 3
+
+New Python algorithm (I could write to Go as well). This time the plan is to calculate all of the
+possible sets of strum patterns under a certain max sum in one go, and then just sum them all to
+find which size each pattern belongs too. We are still summing each set twice which feels bad, I could
+have each set be a tuple that stores the sum as part of the value, then I only need one sum but more ram.
+
+First I will benchmark the new algorithm to see if it's notably faster at all.
+
+
+python v0.3.7  max=35
+real    0m11.027s
+user    0m10.790s
+sys     0m0.234s
+
+
+python v0.3.7b max=35
+real    0m14.203s
+user    0m13.752s
+sys     0m0.448s
+
+Boom! Three seconds lost. Lets see if it's better on larger data. Note Python crashes on my PC around max=45.
+
+python v0.3.7  max=40
+real    1m23.722s
+user    1m22.428s
+sys     0m1.225s
+
+
+python v0.3.7b max=40
+real    1m50.340s
+user    1m47.740s
+sys     0m2.476s
+
+New rhythm has to sort the data which is time consuming and might result in the same time for each
+algo without that step but mostly this seems like the wrong tree to bark up. I should document this algo
+somewhere though so I know where I went wrong. Using the sums as a value in a tuple could be a huge time
+save though.
+
+
+RUN 3
+
+python v0.3.7  max=35
+real    0m12.115s
+user    0m11.801s
+sys     0m0.265s
+
+python v0.3.7c max=35
+real    0m16.075s
+user    0m15.722s
+sys     0m0.306s
+
+Another weird attempt to gain speed losing speed instead. I guess doing twice as many sums of small
+numbers is better than using weird nested lists.
+
+python v0.3.7  max=40
+real    1m37.003s
+user    1m34.986s
+sys     0m1.888s
+
+python v0.3.7c max=40
+real    1m43.404s
+user    1m41.700s
+sys     0m1.572s
+
+
+
+RUN 3
+
+Same idea as the last changes to remove the additional calls to sum, this is much more
+elegant and can be sped up with a switch case. Will document the algorithm further tomorrow
+if it's faster.
+
+
+python v0.3.7  max=35
+real    0m11.601s
+user    0m11.321s
+sys     0m0.149s
+
+python v0.3.7d max=35
+real    0m11.768s
+user    0m11.501s
+sys     0m0.223s
+
+python v0.3.7  max=40
+real    1m28.800s
+user    1m27.003s
+sys     0m1.475s
+
+python v0.3.7d max=40
+real    1m27.619s
+user    1m25.967s
+sys     0m1.508s
+
+Another elegant change that doesn't improve times, but it does improve the code's style quite a bit
+so I may keep v0.3.7d.
+
+I'm going to stick with the changes in v0.3.7d because the code is simpler, but I did also
+find another decent time save by removing some code.
+
+python v0.3.7 max=35
+real    0m9.424s
+user    0m9.243s
+sys     0m0.135s
+
+
+python v0.3.7d max=35 even check
+real    0m10.260s
+user    0m9.992s
+sys     0m0.195s
+
+
+python v0.3.7d max=35 no even check
+real    0m8.589s
+user    0m8.432s
+sys     0m0.154s
+
+
+
+python v0.3.7d max=40 even check
+real    1m9.799s
+user    1m8.913s
+sys     0m0.874s
+
+
+python v0.3.7d max=40 no even check
+real    1m6.383s
+user    1m5.231s
+sys     0m1.070s
+
+
+GO
+Go     v0.3.7 max=40 even check
+real    0m9.994s
+user    0m11.155s
+sys     0m1.715s
+
+Go     v0.3.7d max=40 no even check
+real    0m7.148s
+user    0m7.037s
+sys     0m1.266s
+
+
+Only three seconds gained which is not pretty but I'm going to try skipping
+the write to json at the end which I think is pretty random.
+
+python v0.3.7 max=45 no file write
+real    4m28.866s
+user    4m24.012s
+sys     0m4.840s
+
+python v0.3.7d max=45 no file write
+real    4m24.871s
+user    4m21.035s
+sys     0m3.816s
+
+python v0.3.7d max=45 no file write, no evens
+real    3m32.330s
+user    3m29.088s
+sys     0m3.226s
+
+
+There is no way to verify that these high max runs give correct output without file writing
+so I consider these times "hypothetical" as in,  you could get that time but you may not get
+the data you desire in that time. All of that said, dang, skipping the useless even check bought
+us a lot of time. When I added those lines of code I thought I only got two seconds time saved but
+now I know that I would have had a better time if I'd written the algorithm correctly.
+
+So far v0.3.7d is my favorite algorithm, it claws some speed back and is easier to read. I still
+want to make sure all the names make the most sense possible and then I will pull it in.
+
+I also want to add an "if name == main" check the rhythm.py and import argv so that I can run it
+from the command line. Then I can write a test suite that will work on each algorithm, and can test
+file writes and non file writes. I will also generate some permanent test JSON to compare against.
+
+Then I can just run that tester and get all of my data in one go. I have been manually running and diffing
+this stuff and it's tedious.
