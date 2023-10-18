@@ -20,10 +20,10 @@ def rhythm_permutations(start=[2, 3, 4], size=8):
     as many copies of any digit as are in your input, and the max length is huge.
 
     This is a huge waste because we have to count all the permutations for length of the input.
-    Where as I only care abresults the length where the sum of all twos is less than or equal
+    Where as I only care about the length where the sum of all twos is less than or equal
     to the size. By only using each digit once we have dramatically reduced the amount of work 
     the computer does by two different factors. Both the max length of the
-    input can be much smaller and the length of desired resultsput is much smaller.
+    input can be much smaller and the length of desired output is much smaller.
     Also we are calculating all the different length perms in one go, instead of x different
     times. I took O(N! * M) down to basically O(Nᴹ)
     '''
@@ -72,14 +72,3 @@ def write_strums_to_json(max=12, min=4):
         json.dump(all_eighth_notes, f)
 
 write_strums_to_json(max=20)
-
-'''
-If you call this with just a number, it calls the function.
-
-If you call it -j number, then it calls the write to json function.
-
-The latter gets called number times, the former gets called once.
-
-Then you can build a test runner that runs the same tests on a bunch of different algos, and
-compares their json output to a standard file, and takes a filename as input.
-'''
