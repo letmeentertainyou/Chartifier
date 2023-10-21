@@ -81,4 +81,8 @@ that data was clogging up the changelog. I also added a algorithm_changes direct
 that tracks the actual code described in benchmark_data.txt. I wanted to archive the failed
 algorithms too so that I don't retread old ground.
 I did end up with a working version of the v0.3.7 algorithm called v0.3.7d which is now implemented
-in go/rhyhtm.go and python/rhythm.py
+in go/rhythm.go and python/rhythm.py
+
+v0.4.1
+Fixed a major whitespace bug, compare screenshots for v0.3.6 with v0.4.1
+to see the difference.

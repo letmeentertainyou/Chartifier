@@ -30,10 +30,10 @@ function randomStrumPattern(size=8){
 
 function padding(strLength) {
     if (strLength == 2) {
-        var spaces = "&nbsp;&nbsp;"
+        var spaces = "&nbsp;".repeat(2)
     }
     else if (strLength == 1) {
-        var spaces = "&nbsp;&nbsp;&nbsp;"
+        var spaces = "&nbsp;".repeat(3)
     }
     return spaces
 }
@@ -206,13 +206,20 @@ function chordWeights(count=12) {
 */
 function writeChartToDoc(chart, step) {
     var rightJoin = "&nbsp;".repeat(7)
-    for (index in chart) {
-        var index = Number(index) +1
-        document.write(`${chart[index -1]}${rightJoin}`)
-                                        // No trailing newline.
-        if (index % step === 0 && index != chart.length) {
-            document.write("<br><br>")
+    for (let stringIndex in chart) {
+        var index = Number(stringIndex) +1
+        document.write(chart[index -1])
+
+        if (index % step === 0) {
+            // Add two new lines at the step, unless it's the last line.
+            if (index != chart.length) {
+                document.write("<br><br>")
+            }
+            // This continue skips writing whitespace to the end of the lines.
+            continue
         }
+        document.write(rightJoin)
+        
     }
 }
 

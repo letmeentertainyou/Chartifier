@@ -32,7 +32,7 @@ def rhythm_permutations(start=[2, 3, 4], size=8):
     old     = []
     results = []
 
-    # This is easy to translate to Go than comprehensions.
+    # This is easier to translate to Go than comprehensions.
     for i in start:
         old.append([i])
         if i == size:
