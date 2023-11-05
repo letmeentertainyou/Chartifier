@@ -236,6 +236,7 @@ function writeChartToDoc(chart, step) {
     When the radio buttons are added there will need to be a version of this function that
     checks the radio buttons before randomly generating those things. If for instance the key
     of C minor is selected then a random key is not needed anymore.
+New Chords
 
     This function is called every time the page is loaded, and when a 'New Chords' is added 
     to the html page then this function is what that button will call. 
@@ -247,7 +248,7 @@ function writeRandomChart() {
     var chart = chartFromNumbers(chords)
     var strum = randomStrumPattern()
 
-    idWrite("topBar", `Key: ${key}<br>Rhythm: ${strum}<br>`)
+    idWrite("chartStats", `Key: ${key}<br>Rhythm: ${strum}`)
     writeChartToDoc(chart, 4)       
 }
 

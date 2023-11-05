@@ -89,3 +89,6 @@ v0.4.5
 Added some new CSS, changed how writing to the document works, added idWrite()
 function to update individual page ids, added some ids into the html too. I will
 add screenshots of these changes when things are more polished. 
+
+v0.4.6
+Cleaned up the HTML/CSS a lot.
