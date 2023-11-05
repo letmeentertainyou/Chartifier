@@ -196,8 +196,14 @@ function chordWeights(count=12) {
     return result
 }
 
-
 /* HTML */
+
+/* 
+    This function allows you to overwrite any element by id in the document.
+*/
+function idWrite(id, message) {
+    document.getElementById(id).innerHTML = message
+}
 
 /*
     Takes a set of chords, and an integer representing how many chords show go in a row,
@@ -206,21 +212,21 @@ function chordWeights(count=12) {
 */
 function writeChartToDoc(chart, step) {
     var rightJoin = "&nbsp;".repeat(7)
+    var res = ""
     for (let stringIndex in chart) {
         var index = Number(stringIndex) +1
-        document.write(chart[index -1])
-
+        res += chart[index -1] 
         if (index % step === 0) {
             // Add two new lines at the step, unless it's the last line.
             if (index != chart.length) {
-                document.write("<br><br>")
+                res += "<br><br>"
             }
             // This continue skips writing whitespace to the end of the lines.
             continue
         }
-        document.write(rightJoin)
-        
+        res += rightJoin
     }
+    idWrite("chart", res)
 }
 
 /*
@@ -241,9 +247,17 @@ function writeRandomChart() {
     var chart = chartFromNumbers(chords)
     var strum = randomStrumPattern()
 
-    document.write(`Key: ${key}<br>`)
-    document.write(`Strum pattern: ${strum}<br>`)
+    idWrite("topBar", `Key: ${key}<br>Rhythm: ${strum}<br>`)
     writeChartToDoc(chart, 4)       
 }
 
+/*
+    This is what the NEW CHART button will call. 
+*/
+function cleanWrite() {
+    writeRandomChart()
+}
+
+// First write to the document needs to be explicit.
 writeRandomChart()
+

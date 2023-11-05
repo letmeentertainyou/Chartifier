@@ -13,6 +13,10 @@ Write a doc string for the tools module.
 const echo     = message   => document.write(message)
 const nl       = _         => document.write('<br>')
 
+// Debug only
+const reset    = _         => document.body.innerHTML = ''
+
+
 /*
     Nothing is as elegant as tuples but this is a nice option to extend the js language quite a bit.
 */

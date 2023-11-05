@@ -1,23 +1,21 @@
-The rest of these changes are going to require taking some web dev courses, so
-updates may slow down before I get the html looking nicer. I hope to finish this stuff soon.
+*** JS ***
+    *rewrite rhythm.py in JS, and then remove the large dataset from the webpack.
+    Instead generate rhythms in real time/
 
-*** Display ***
+*** HTML ***
     *fix font size.           DONE
     *weighted random chords   DONE
-    *pad chord strings.       DONE (not well)
+    *pad chord strings.       DONE
 
-    *new chords button
-    *radio buttons for key/rhythm
+    *new chords button        DONE
+    *figure out how to make the top of the page look nicer, and center the button.
+    *dropdown menus for key/rhythm
     *make page dynamically flexible.
     *mobile support (probably works now but needs testing)
 
-*** Documentation ***
-    *doc strings              DONE
-
 
 *** Toolchain ***
-    *add js linting tools
-    *add pre_commit hook
+    *add js compiler like WebPack, and add /dist dir for the packed code.
 
 
 changelog:
@@ -86,3 +84,8 @@ in go/rhythm.go and python/rhythm.py
 v0.4.1
 Fixed a major whitespace bug, compare screenshots for v0.3.6 with v0.4.1
 to see the difference.
+
+v0.4.5
+Added some new CSS, changed how writing to the document works, added idWrite()
+function to update individual page ids, added some ids into the html too. I will
+add screenshots of these changes when things are more polished. 

@@ -1,7 +1,33 @@
+/*
+TO DO
+Add a reload button
+Add dropdown menus.
+Make the h1 element not bold.
 
+*/
 html * {
     background-color: rgb(33, 30, 30);
     color: white;
+
+}
+#reload {
+    margin: auto;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+#topBar {
+    background-color:  rgb(46, 43, 43);
+    text-align: left;
+    font-size: 20px;
+}
+
+#chart {
     text-align: center;
     font-size: 25px;
-  }
+}
