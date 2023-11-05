@@ -2,19 +2,37 @@
 TO DO
 Add dropdown menus.
 */
+
+
 html * {
     background-color: rgb(33, 30, 30);
     color: white;
 
+    /* CSS RESET */
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+
+}
+
+div {
+    height:80px;
+    border-bottom: 3px solid rgb(221, 169, 169);
 }
 
 .topBar {
+    background-color:  rgb(76, 86, 81);
     margin: auto;
-    font-size: 17px;
-    height:40px;
-    width: 33%;
+    font-size: 30px;
+    height:80px;
+    width: 33.33%;
     float: left;
     text-align: left;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-top: 6px;
+    
 }
 
 /* Add some style to make the button look like a button.*/
@@ -24,11 +42,10 @@ html * {
     text-align: center;
 }
 
-#chartStats, #dropDowns {
-    background-color:  rgb(45, 45, 47);
-}
+
 
 #chart {
     text-align: center;
-    font-size: 30px;
+    font-size: 75px;
+    padding-top: 60px;
 }
