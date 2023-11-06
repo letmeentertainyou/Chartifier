@@ -57,39 +57,39 @@ func rhythmPermutations(start[]int, size int) [][]int {
     */
 
     upper  := size / 2
-	old    := [][]int{}
+    old    := [][]int{}
     results := [][]int{}
     
     for _, i := range start {
-		old    = append(old,    []int{i})
-		if i == size {
-        	results = append(results, []int{i})
-		}
+        old    = append(old,    []int{i})
+        if i == size {
+            results = append(results, []int{i})
+        }
     }
 
     for length := 1; length < upper; length++ {
-		tmp := [][]int{}
+        tmp := [][]int{}
         for _, digit := range start {
             for _, tail := range old {
-				// This piece of code is the most different in every language.
-				perm := append([]int{digit}, tail...)
-				sum_perm := sum(perm)
+                // This piece of code is the most different in every language.
+                perm := append([]int{digit}, tail...)
+                sum_perm := sum(perm)
 
-				if sum_perm == size {
-					results = append(results, perm)
-					continue
-				}
+                if sum_perm == size {
+                    results = append(results, perm)
+                    continue
+                }
 
-				if sum_perm == size -1 {
-					continue
-				}
+                if sum_perm == size -1 {
+                    continue
+                }
 
-				if sum_perm < size {
-					tmp = append(tmp, perm)
-				}
+                if sum_perm < size {
+                    tmp = append(tmp, perm)
+                }
             }
         }
-		old = tmp
+        old = tmp
     }
     return results
 }
@@ -120,11 +120,11 @@ func writeStrumsToJSON(max, min int) {
 
 // UTILS
 func printf(message any) {
-	fmt.Println(message)
+    fmt.Println(message)
 }
 
 func main() {
-	start := []int{2, 3, 4}
-	printf(rhythmPermutations(start, 16))
-	//writeStrumsToJSON(20, 4)
+    start := []int{2, 3, 4}
+    printf(rhythmPermutations(start, 16))
+    //writeStrumsToJSON(20, 4)
 }
