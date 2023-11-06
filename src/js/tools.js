@@ -2,8 +2,6 @@
 These are a few tools that are not directly related to music theory.
 */
 
-'use strict'
-
 /*
     Deep copy needs to be a builtin for any shallow copy by default languages.
 */

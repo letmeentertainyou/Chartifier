@@ -1,4 +1,4 @@
-Chartifier v0.4.5
+Chartifier v0.4.8
 
 Randomly generates a chord chart and strum pattern for you to play.
 
@@ -16,7 +16,7 @@ This is my first time working on a web app and I don't yet have a place to host 
 read this far and you'd like to try using Chartifier it's extremely simple to run on any computer with
 a web browser.
 
-All you need to do is download the src/ directory and place it anywhere on your pc. 
+All you need to do is download the dist/ directory and place it anywhere on your pc. 
 Then you right click on Chartifier.html and choose open in web browser. 
 You can even bookmark Chartifier.html so it's easier to return to.
 
@@ -24,8 +24,8 @@ Chartifier is really simple and does not need an internet connection to run. It 
 offline sandbox or in private browsing. There is no data collection, or phoning home. Just pure, fun, 
 javascript functions.
 
-The total size of the Chartifier v0.3.5 src directory is 23.1 kB, in linux the parent directory takes 4kb, 
-so that's only 19kb of code. While I do expect this project to grow a bit, it will never use cookies, 
+The total size of the Chartifier v0.3.5 src directory is 23.8 kB, and the dist directory is 10.3 kB. 
+While I do expect this project to grow a bit, it will never use cookies, 
 communicate with a server, or do anything remotely sketchy with your CPU cycles. This is a webapp meant for 
 a more nostalgic time when the web was neat!
 

@@ -26,9 +26,6 @@ Melodic G, G♭, C♭
 Harmonic D♭, D, G♭, G, C♭
 */
 
-'use strict'
-
-
 var diatonic_notes = { 'C♯': 'D♭', 'F♯': 'G♭', 'B': 'C♭', 'D♭': 'C♯', 'G♭': 'F♯', 'C♭': 'B' };
 
 var primary_sharps   = ['C',  'C♯', 'D', 'D♯', 'E', 'F',  'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];

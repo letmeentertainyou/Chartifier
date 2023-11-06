@@ -2,8 +2,6 @@
 These tools will not be included in the JS bundler but they are nice for dev work.
 */
 
-'use strict'
-
 /* UTILITY */
 
 const echo     = message   => document.write(message)

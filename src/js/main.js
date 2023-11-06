@@ -1,13 +1,10 @@
-'use strict'
-
 /* RHYTHM */
 
 /*
-    Strum patterns are defined in the file js/strumPatterns.js, this function randomly
-    picks a strum pattern and makes it human readable. If size isn't a valid strumPatterns
-    key things will crash. 
+    This function randomly picks a strum pattern and makes it human readable. If size isn't
+    a valid strumPatterns key things will crash. 
 */
-function randomStrumPattern(size=8){
+function randomStrumPattern(size=8) {
     /* 
         This replaces ints with slashes for the strum pattern.
     */
@@ -18,10 +15,10 @@ function randomStrumPattern(size=8){
         }
         return result.join(' ') 
     }
-    return strummer(choice(strumPatterns[size]))
+    return strummer(choice(rhythmPermutations(size)))
 }    
 
-/* ########## HARMONY ##########  */
+/* HARMONY */
 
 /*
     This is just to make the chords prettier on the html page, it does not exist in
@@ -37,7 +34,6 @@ function padding(strLength) {
     }
     return spaces
 }
-
 
 /*
     This function takes a key, a mode_offset(0 to 6) and a mode, and tries to
@@ -146,9 +142,10 @@ function chartFromNumbers(chords){
 }
 
 /*
-    This chooses x chords at random, and generates some additional weighting info for those chords too.
-    This function also forces the first and last chord of a progression to be the one chord. This is a
-    common music theory practice but it can be removed for more random charts.
+    This chooses x chords at random, and generates some additional weighting info for those
+    chords too. This function also forces the first and last chord of a progression to be
+    the one chord. This is a common music theory practice but it can be removed for more
+    random charts.
 */
 function chordNumbers(count=12) {
     var result = []
@@ -236,10 +233,9 @@ function writeChartToDoc(chart, step) {
     When the radio buttons are added there will need to be a version of this function that
     checks the radio buttons before randomly generating those things. If for instance the key
     of C minor is selected then a random key is not needed anymore.
-New Chords
 
-    This function is called every time the page is loaded, and when a 'New Chords' is added 
-    to the html page then this function is what that button will call. 
+    This function is called every time the page is loaded, and when the 'New Chart' button
+    is clicked. 
 */
 function writeRandomChart() {
     var res = randomKey()
@@ -252,13 +248,4 @@ function writeRandomChart() {
     writeChartToDoc(chart, 4)       
 }
 
-/*
-    This is what the NEW CHART button will call. 
-*/
-function cleanWrite() {
-    writeRandomChart()
-}
-
-// First write to the document needs to be explicit.
 writeRandomChart()
-

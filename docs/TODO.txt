@@ -1,6 +1,5 @@
 *** JS ***
-    *rewrite rhythm.py in JS, and then remove the large dataset from the webpack.
-    Instead generate rhythms in real time/
+    *rewrite rhythm.py in JS  DONE
 
 *** HTML ***
     *fix font size.           DONE
@@ -8,14 +7,12 @@
     *pad chord strings.       DONE
 
     *new chords button        DONE
-    *figure out how to make the top of the page look nicer, and center the button.
+    *figure out how to make the top of the page look nicer, and center the button. DONE
     *dropdown menus for key/rhythm
-    *make page dynamically flexible.
-    *mobile support (probably works now but needs testing)
 
 
 *** Toolchain ***
-    *add js compiler like WebPack, and add /dist dir for the packed code.
+    *add js compiler like WebPack, and add /dist dir for the packed code. DONE
 
 
 changelog:
@@ -92,3 +89,11 @@ add screenshots of these changes when things are more polished.
 
 v0.4.6
 Cleaned up the HTML/CSS a lot.
+
+v0.4.8
+Added a pre-commit script that bundles src dir into a dist dir, added scripts dir, 
+added dist dir. Wrote my own simple bundler because webpack was a headache and this
+project is very small.
+
+Also rewrote rhythm.py into js and removed all of the pre-rendered strum patterns from the
+project. The algorithm is fast enough to render size=16 in well under 100 milliseconds.

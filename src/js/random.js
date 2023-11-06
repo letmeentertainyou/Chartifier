@@ -10,8 +10,6 @@ Copyright (c) 2022 oittaa
 tokenUrlsafe, tokenHex and export are commented out but not removed.
 */
 
-'use strict'
-
 const BITS_MAX = 48
 const DEFAULT_ENTROPY = 32
 const RAND_MAX = 0xFFFF_FFFF_FFFF
