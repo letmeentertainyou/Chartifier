@@ -1,4 +1,6 @@
 /*
+Prettier makes this file uglier so it's turned off.
+
 I ended up building out all 7 main modes, and melodic/harmonic minor scales.
 I am choosing not to support double flats/sharps and keys with both types of accent.
 

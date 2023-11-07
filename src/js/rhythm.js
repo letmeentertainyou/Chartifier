@@ -17,46 +17,45 @@
     times. I took O(N! * M) down to basically O(Nᴹ)
 */
 
-function rhythmPermutations(size=8, start=[2, 3, 4]) {
-    var upper = intDiv(size, 2)
-    var old = []
-    var results = []
+function rhythmPermutations(size = 8, start = [2, 3, 4]) {
+    var upper = intDiv(size, 2);
+    var old = [];
+    var results = [];
 
     // This is easier to translate to Go than comprehensions.
     for (let i of start) {
-        old.push([i])
+        old.push([i]);
         if (i == size) {
-            results.push([i])
+            results.push([i]);
         }
     }
-    
 
     // gonna need xrange
     for (_ in xrange(upper, 1)) {
-        var tmp = []
+        var tmp = [];
         for (let digit of start) {
             for (let tail of old) {
                 // This piece of code is the most different in every language.
-                var perm = [digit, ...tail]
-                var sum_perm = sum(perm)
+                var perm = [digit, ...tail];
+                var sum_perm = sum(perm);
 
                 if (sum_perm == size) {
-                    results.push(perm)
-                    continue
+                    results.push(perm);
+                    continue;
                 }
 
                 if (sum_perm == size - 1) {
-                    continue
+                    continue;
                 }
 
                 if (sum_perm < size) {
-                    tmp.push(perm)
+                    tmp.push(perm);
                 }
             }
         }
-        old = tmp
+        old = tmp;
     }
-    return results
+    return results;
 }
 
 // write_strums_to_json(max=20)

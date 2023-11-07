@@ -4,19 +4,19 @@
     This function randomly picks a strum pattern and makes it human readable. If size isn't
     a valid strumPatterns key things will crash. 
 */
-function randomStrumPattern(size=8) {
+function randomStrumPattern(size = 8) {
     /* 
         This replaces ints with slashes for the strum pattern.
     */
     function strummer(list_int) {
-        var result = []
+        var result = [];
         for (let x of list_int) {
-            result.push('/'.repeat(x))
+            result.push("/".repeat(x));
         }
-        return result.join(' ') 
+        return result.join(" ");
     }
-    return strummer(choice(rhythmPermutations(size)))
-}    
+    return strummer(choice(rhythmPermutations(size)));
+}
 
 /* HARMONY */
 
@@ -27,12 +27,11 @@ function randomStrumPattern(size=8) {
 
 function padding(strLength) {
     if (strLength == 2) {
-        var spaces = "&nbsp;".repeat(2)
+        var spaces = "&nbsp;".repeat(2);
+    } else if (strLength == 1) {
+        var spaces = "&nbsp;".repeat(3);
     }
-    else if (strLength == 1) {
-        var spaces = "&nbsp;".repeat(3)
-    }
-    return spaces
+    return spaces;
 }
 
 /*
@@ -44,8 +43,12 @@ function padding(strLength) {
     weird keys. I don't even know what the modes for melodic/harmonic mind are called but this
     supports most of them.
 */
-function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
-
+function chordsFromKey(
+    key = "C",
+    mode_offset = 0,
+    mode = ionian,
+    first_pass = true
+) {
     /*
         This function takes a give set of notes, and attempts to build some chords out of it
         the outer function confirms that the lenSetFirstChars assembler returns is 7. 
@@ -53,55 +56,57 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
         assembler is called until it returns a seven or there are no more note pools to draw from.
     */
     function assembler(notes) {
-        if (!(notes.includes(key))) {
-            return [[], 0]
+        if (!notes.includes(key)) {
+            return [[], 0];
         }
 
-        var start         = notes.indexOf(key)
-        var shiftedNotes  = shiftSlice(notes, start)
-        var chords        = []
-        var idx           = 0
-        var chosenMode = shiftSlice(mode, mode_offset)
+        var start = notes.indexOf(key);
+        var shiftedNotes = shiftSlice(notes, start);
+        var chords = [];
+        var idx = 0;
+        var chosenMode = shiftSlice(mode, mode_offset);
 
-        for (let chord of chosenMode){
-            var note = shiftedNotes[idx]
-            var spaces = padding(note.length)
-            var fullName = `${note}${spaces}${chord[1]}`
-            
-            chords.push(fullName)
-            idx += chord[0]
+        for (let chord of chosenMode) {
+            var note = shiftedNotes[idx];
+            var spaces = padding(note.length);
+            var fullName = `${note}${spaces}${chord[1]}`;
+
+            chords.push(fullName);
+            idx += chord[0];
         }
-        return [chords, lenSetFirstChars(chords)]
+        return [chords, lenSetFirstChars(chords)];
     }
 
-    var all_notes  = [sharps, flats]
-    if (key.includes('♭')) {       // skips sharps
-        all_notes = [flats]
+    var all_notes = [sharps, flats];
+    if (key.includes("♭")) {
+        // skips sharps
+        all_notes = [flats];
     }
-    if (key.includes('♯')) {       // skips flats
-        all_notes = [sharps]
+    if (key.includes("♯")) {
+        // skips flats
+        all_notes = [sharps];
     }
 
     for (let index of xrange(3)) {
         for (let notes of all_notes) {
-            var res = assembler(notes[index])
-            var chords = res[0]
-            var chordsLength = res[1]
+            var res = assembler(notes[index]);
+            var chords = res[0];
+            var chordsLength = res[1];
 
             if (chordsLength == 7) {
-                return [chords, key]
+                return [chords, key];
             }
         }
     }
 
     if (first_pass) {
-        var key = diatonic_notes[key]
+        var key = diatonic_notes[key];
         if (key) {
-            return chordsFromKey(key, mode_offset, mode, false)
+            return chordsFromKey(key, mode_offset, mode, false);
         }
     }
 
-    return [[], key]
+    return [[], key];
 }
 
 /*
@@ -110,20 +115,19 @@ function chordsFromKey(key='C', mode_offset=0, mode=ionian, first_pass=true) {
     key for some reason (rare), it just keeps trying until a valid key is found.
 */
 function randomKey() {
-    var key         = choice(ionian_keys)
-    var mode_offset = choice(xrange(7))
-    var mode_name   = ionian_names[mode_offset]
-    var res = chordsFromKey(key, mode_offset, ionian)
-    var chords = res[0]
-    var key = res[1]
-                                    
+    var key = choice(ionian_keys);
+    var mode_offset = choice(xrange(7));
+    var mode_name = ionian_names[mode_offset];
+    var res = chordsFromKey(key, mode_offset, ionian);
+    var chords = res[0];
+    var key = res[1];
+
     // Empty arrays aren't falsey is JS so we need to check the length
     if (chords.length == 0) {
-        return randomKey()
+        return randomKey();
     }
-                      
-    return [chords, `${key} ${mode_name}`]
 
+    return [chords, `${key} ${mode_name}`];
 }
 
 /* RANDOM CHORD CHART MATH */
@@ -131,14 +135,14 @@ function randomKey() {
 /*
     This generates some chord numbers and then applies them to a given set of chords.
 */
-function chartFromNumbers(chords){
-    var numbers = chordNumbers(12)
-    var progression = []
+function chartFromNumbers(chords) {
+    var numbers = chordNumbers(12);
+    var progression = [];
 
     for (let i of numbers) {
-        progression.push(chords[i -1])
+        progression.push(chords[i - 1]);
     }
-    return progression
+    return progression;
 }
 
 /*
@@ -147,19 +151,18 @@ function chartFromNumbers(chords){
     the one chord. This is a common music theory practice but it can be removed for more
     random charts.
 */
-function chordNumbers(count=12) {
-    var result = []
-    var weights = chordWeights(count)
+function chordNumbers(count = 12) {
+    var result = [];
+    var weights = chordWeights(count);
 
     for (let i of xrange(weights.length)) {
-        if (i === 0 || i === count -1) {
-            result.push(1)
-        }
-        else { 
-            result.push(choice(weights[i]))
+        if (i === 0 || i === count - 1) {
+            result.push(1);
+        } else {
+            result.push(choice(weights[i]));
         }
     }
-    return result
+    return result;
 }
 
 /*
@@ -171,26 +174,26 @@ function chordNumbers(count=12) {
     in a row. But actually that needs to be solved in the function above.
 
 */
-function chordWeights(count=12) {
+function chordWeights(count = 12) {
     /*
         Picks a number from the current set of weights and adds two more of that number.
     */
     function manip(prev) {
-        var magic_number = choice(prev)
-        var tmp = deepCopy(prev)
-        tmp.push(...xfill(2, magic_number))
-        tmp.sort
-        return tmp
+        var magic_number = choice(prev);
+        var tmp = deepCopy(prev);
+        tmp.push(...xfill(2, magic_number));
+        tmp.sort;
+        return tmp;
     }
 
     // These are not zero indexed so that they are readable by human musicians.
-    var start = [1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 7]
-    var result = [start]
-    
-    for (let x in xrange(count -1)) {
-            result.push(manip(result[x], x))
+    var start = [1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 7];
+    var result = [start];
+
+    for (let x in xrange(count - 1)) {
+        result.push(manip(result[x], x));
     }
-    return result
+    return result;
 }
 
 /* HTML */
@@ -199,7 +202,7 @@ function chordWeights(count=12) {
     This function allows you to overwrite any element by id in the document.
 */
 function idWrite(id, message) {
-    document.getElementById(id).innerHTML = message
+    document.getElementById(id).innerHTML = message;
 }
 
 /*
@@ -208,22 +211,22 @@ function idWrite(id, message) {
     chartFromNumbers
 */
 function writeChartToDoc(chart, step) {
-    var rightJoin = "&nbsp;".repeat(7)
-    var res = ""
+    var rightJoin = "&nbsp;".repeat(7);
+    var res = "";
     for (let stringIndex in chart) {
-        var index = Number(stringIndex) +1
-        res += chart[index -1] 
+        var index = Number(stringIndex) + 1;
+        res += chart[index - 1];
         if (index % step === 0) {
             // Add two new lines at the step, unless it's the last line.
             if (index != chart.length) {
-                res += "<br><br>"
+                res += "<br><br>";
             }
             // This continue skips writing whitespace to the end of the lines.
-            continue
+            continue;
         }
-        res += rightJoin
+        res += rightJoin;
     }
-    idWrite("chart", res)
+    idWrite("chart", res);
 }
 
 /*
@@ -238,14 +241,14 @@ function writeChartToDoc(chart, step) {
     is clicked. 
 */
 function writeRandomChart() {
-    var res = randomKey()
-    var chords = res[0]
-    var key = res[1]
-    var chart = chartFromNumbers(chords)
-    var strum = randomStrumPattern()
+    var res = randomKey();
+    var chords = res[0];
+    var key = res[1];
+    var chart = chartFromNumbers(chords);
+    var strum = randomStrumPattern();
 
-    idWrite("chartStats", `Key: ${key}<br>Rhythm: ${strum}`)
-    writeChartToDoc(chart, 4)       
+    idWrite("chartStats", `Key: ${key}<br>Rhythm: ${strum}`);
+    writeChartToDoc(chart, 4);
 }
 
-writeRandomChart()
+writeRandomChart();

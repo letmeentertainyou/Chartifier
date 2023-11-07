@@ -37,7 +37,6 @@ func sum(iterable[]int) int {
     return result
 }
 
-
 func rhythmPermutations(start[]int, size int) [][]int {
     /*
     This can calculate size=20 in 0m0.103s where as heap_perm would take hours to calculate size=18

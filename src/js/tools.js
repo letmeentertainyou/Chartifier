@@ -5,7 +5,7 @@ These are a few tools that are not directly related to music theory.
 /*
     Deep copy needs to be a builtin for any shallow copy by default languages.
 */
-const deepCopy = iterable  => JSON.parse(JSON.stringify(iterable))
+const deepCopy = (iterable) => JSON.parse(JSON.stringify(iterable));
 
 /* 
     Populates an array with num to use xfill do this
@@ -13,39 +13,39 @@ const deepCopy = iterable  => JSON.parse(JSON.stringify(iterable))
 
     Note that the ellipse is very important.
 */
-const xfill = (copies, num) => Array(copies).fill(num)
+const xfill = (copies, num) => Array(copies).fill(num);
 
 /*
     Looping through this is wildly inefficient because the loop happens twice.
     So for any large loops just type it out. You can also use this to generate lists 
     of numbers which js doesn't do natively.
 */
-function xrange(upper, lower=0, step=1) {
-    var result = []
+function xrange(upper, lower = 0, step = 1) {
+    var result = [];
     if (step === 1) {
-        for (let i=lower; i<upper; i++) {
-            result.push(i)
+        for (let i = lower; i < upper; i++) {
+            result.push(i);
         }
     }
-    
+
     if (step === -1) {
-        for (let i=upper; i>lower; i--) {
-            result.push(i)
+        for (let i = upper; i > lower; i--) {
+            result.push(i);
         }
     }
-    
-    return result
+
+    return result;
 }
 
 /*
     Why this isn't a built in truly eludes me, could computers not add in the 90s?
 */
 function sum(iterable) {
-    var total = 0
+    var total = 0;
     for (let x of iterable) {
-        total += x
+        total += x;
     }
-    return total
+    return total;
 }
 
 /*
@@ -53,13 +53,13 @@ function sum(iterable) {
     then compare them. This doesn't modify the input arrays.
 */
 function arrayComp(iterableA, iterableB) {
-    var A = iterableA.toString()
-    var B = iterableB.toString()
+    var A = iterableA.toString();
+    var B = iterableB.toString();
 
     if (A == B) {
-        return true
+        return true;
     }
-    return false
+    return false;
 }
 
 /*
@@ -68,9 +68,9 @@ function arrayComp(iterableA, iterableB) {
     a lot easier, It's a very useful tool for navigating math in any base.
 */
 function shiftSlice(iterable, start) {
-    var head = iterable.slice(start, iterable.length)
-    var tail = iterable.slice(0, start)
-    return  [...head, ...tail]
+    var head = iterable.slice(start, iterable.length);
+    var tail = iterable.slice(0, start);
+    return [...head, ...tail];
 }
 
 /*
@@ -82,10 +82,10 @@ function shiftSlice(iterable, start) {
     hence the name.
 */
 function lenSetFirstChars(listOfStr) {
-    var set = new Set()
+    var set = new Set();
     for (let i of listOfStr) {
-        set.add(i[0])
+        set.add(i[0]);
     }
-    var usableSet = Array.from(set)
-    return usableSet.length
+    var usableSet = Array.from(set);
+    return usableSet.length;
 }
