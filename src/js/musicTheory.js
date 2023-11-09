@@ -53,5 +53,3 @@ var harmonic = [[2, 'Min'], [1, 'Dim'], [2, 'Aug'], [2, 'Min'], [1, 'Maj'], [3, 
 
 const modes = [ "Melodic", "Harmonic", "Ionian", "Dorian", "Phrygian", 
                 "Lydian", "Mixolydian", "Aeolian", "Locrian"];
-
-    console.log(ionian_names.indexOf("Dorian"))

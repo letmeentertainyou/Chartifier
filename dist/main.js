@@ -116,7 +116,7 @@ var melodic  = [[2, 'Min'], [1, 'Min'], [2, 'Aug'], [2, 'Maj'], [2, 'Maj'], [2, 
 var harmonic = [[2, 'Min'], [1, 'Dim'], [2, 'Aug'], [2, 'Min'], [1, 'Maj'], [3, 'Maj'], [1, 'Dim']];
 const modes = [ "Melodic", "Harmonic", "Ionian", "Dorian", "Phrygian", 
                 "Lydian", "Mixolydian", "Aeolian", "Locrian"];
-    console.log(ionian_names.indexOf("Dorian"))const countSelect = document.getElementById("count");
+const countSelect = document.getElementById("count");
 const modeSelect = document.getElementById("modes");
 const noteSelect = document.getElementById("notes");
 const counts = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
