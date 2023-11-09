@@ -1,18 +1,23 @@
-*** JS ***
-    *rewrite rhythm.py in JS  DONE
+This UI looks decently slick in the screenshots but still fails when a page is zoomed in
+or out. So I need to learn how to make every text element dynamic. The challenge is that
+the actual text of the chord chart needs to be very large.
 
-*** HTML ***
-    *fix font size.           DONE
-    *weighted random chords   DONE
-    *pad chord strings.       DONE
+After cleaning up the UI, I can finally work on adding a verse/chorus option, and maybe a
+choice for how long a given progression needs to be.
 
-    *new chords button        DONE
-    *figure out how to make the top of the page look nicer, and center the button. DONE
-    *dropdown menus for key/rhythm
+Eventually I will modify the chord weighting algorithm to be more musically interesting.
+I'd also like to allow users to select a second key so that they can have chords from
+either key in their chart. This will really make the UI uglier so I'm not sure if it's
+realistic.
 
 
-*** Toolchain ***
-    *add js compiler like WebPack, and add /dist dir for the packed code. DONE
+*** JAVASCRIPT ***
+    *start creating chord weighting algos.
+
+
+*** HTML/CSS ***
+    *make font sizes dynamic.
+    *clean up webpage
 
 
 changelog:
@@ -97,3 +102,10 @@ project is very small.
 
 Also rewrote rhythm.py into js and removed all of the pre-rendered strum patterns from the
 project. The algorithm is fast enough to render size=16 in well under 100 milliseconds.
+
+v0.7.5
+Added drop down menus to select mode/key/count. Updated README to explain their use,
+and added some v0.7.5 screenshots. Added support for harmonic/melodic minor keys to the 
+front end (it was in the first published version of Chartifier.) I could add support for 
+the modes of the harmonic/melodic minor scales but I don't know their names and it would 
+make the modes dropdown menu have 21 items which is a bit busy.

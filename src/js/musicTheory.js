@@ -51,3 +51,7 @@ var ionian   = [[2, 'Maj'], [2, 'Min'], [1, 'Min'], [2, 'Maj'], [2, 'Maj'], [2, 
 var melodic  = [[2, 'Min'], [1, 'Min'], [2, 'Aug'], [2, 'Maj'], [2, 'Maj'], [2, 'Dim'], [1, 'Dim']];
 var harmonic = [[2, 'Min'], [1, 'Dim'], [2, 'Aug'], [2, 'Min'], [1, 'Maj'], [3, 'Maj'], [1, 'Dim']];
 
+const modes = [ "Melodic", "Harmonic", "Ionian", "Dorian", "Phrygian", 
+                "Lydian", "Mixolydian", "Aeolian", "Locrian"];
+
+    console.log(ionian_names.indexOf("Dorian"))

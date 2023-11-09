@@ -117,7 +117,7 @@ function chordsFromKey(
 function randomKey() {
     var key = choice(ionian_keys);
     var mode_offset = choice(xrange(7));
-    var mode_name = ionian_names[mode_offset];
+    var mode = ionian_names[mode_offset];
     var res = chordsFromKey(key, mode_offset, ionian);
     var chords = res[0];
     var key = res[1];
@@ -127,7 +127,7 @@ function randomKey() {
         return randomKey();
     }
 
-    return [chords, `${key} ${mode_name}`];
+    return [chords, `${key} ${mode}`];
 }
 
 /* RANDOM CHORD CHART MATH */
@@ -231,23 +231,54 @@ function writeChartToDoc(chart, step) {
 
 /*
     This function generates some random chords, and a random chart, and a random strum
-    pattern, and puts all the pieces together.
-    
-    When the radio buttons are added there will need to be a version of this function that
-    checks the radio buttons before randomly generating those things. If for instance the key
-    of C minor is selected then a random key is not needed anymore.
+    pattern, and puts all the pieces together. It also interacts with the dropdown menus
+    to get a user selected key/count instead.
 
     This function is called every time the page is loaded, and when the 'New Chart' button
-    is clicked. 
+    is clicked. The randomKey function returns a full key name (ie Db Dorian) but the 
+    chordsFromKey function only returns the letter name of the key (ie Db) so we have to
+    append the correct name for each mode to the var key in this function.
 */
 function writeRandomChart() {
-    var res = randomKey();
-    var chords = res[0];
-    var key = res[1];
-    var chart = chartFromNumbers(chords);
-    var strum = randomStrumPattern();
+    var countValue = countSelect.value;
+    if (!countValue) {
+        countValue = 8;
+    }
 
-    idWrite("chartStats", `Key: ${key}<br>Rhythm: ${strum}`);
+    var count = randomStrumPattern(countValue);
+
+    var modeValue = modeSelect.value;
+    var keyValue = noteSelect.value;
+    if (!keyValue || !modeValue) {
+        var res = randomKey();
+        var key = res[1];
+    }
+
+    // Harmonic
+    else if (modeValue == "Harmonic") {
+        var res = chordsFromKey(keyValue, 0, harmonic);
+        var key = `${res[1]} Harmonic`;
+    }
+
+    // Melodic
+    else if (modeValue == "Melodic") {
+        var res = chordsFromKey(keyValue, 0, melodic);
+        var key = `${res[1]} Melodic`;
+    }
+
+    // This is the ionian case, for melodic, and harmonic we don't need an offset
+    else {
+        // Why would indexOf return anything other than an int?
+        var mode_offset = Number(ionian_names.indexOf(modeValue));
+        var res = chordsFromKey(keyValue, mode_offset, ionian);
+        var mode = ionian_names[mode_offset];
+        var key = `${res[1]} ${mode}`;
+    }
+
+    var chords = res[0];
+    var chart = chartFromNumbers(chords);
+
+    idWrite("chartStats", `Key: ${key}<br>Count ${count}`);
     writeChartToDoc(chart, 4);
 }
 

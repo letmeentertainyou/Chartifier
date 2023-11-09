@@ -12,7 +12,23 @@
             <button id="reload" class="topBar" onclick="writeRandomChart()">
                 New Chart
             </button>
-            <p id="dropDowns" class="topBar"></p>
+            <!--Make a custom class for the dropdown styles? -->
+            <p id="dropDowns" class="topBar">
+                <span>
+                    <label for="notes">Key:</label>
+                    <select name="notes" id="notes"></select>
+                </span>
+                <span>
+                    <label for="modes">Mode:</label>
+                    <select name="modes" id="modes"></select>
+                </span>
+                <span>
+                    <label for="count">Count:</label>
+                    <select name="count" id="count">
+                        Year:
+                    </select>
+                </span>
+            </p>
         </div>
         <p id="chart"></p>
     </body>
@@ -22,6 +38,7 @@
     <script src="js/tools.js"></script>
     <script src="js/devTools.js"></script>
     <script src="js/musicTheory.js"></script>
+    <script src="js/dropDowns.js"></script>
     <script src="js/rhythm.js"></script>
     <script src="js/main.js"></script>
 </html>

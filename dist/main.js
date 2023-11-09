@@ -114,6 +114,53 @@ var harmonic_keys = ['C', 'C♯',            'E♭', 'E', 'F', 'F♯',          
 var ionian   = [[2, 'Maj'], [2, 'Min'], [1, 'Min'], [2, 'Maj'], [2, 'Maj'], [2, 'Min'], [1, 'Dim']];
 var melodic  = [[2, 'Min'], [1, 'Min'], [2, 'Aug'], [2, 'Maj'], [2, 'Maj'], [2, 'Dim'], [1, 'Dim']];
 var harmonic = [[2, 'Min'], [1, 'Dim'], [2, 'Aug'], [2, 'Min'], [1, 'Maj'], [3, 'Maj'], [1, 'Dim']];
+const modes = [ "Melodic", "Harmonic", "Ionian", "Dorian", "Phrygian", 
+                "Lydian", "Mixolydian", "Aeolian", "Locrian"];
+    console.log(ionian_names.indexOf("Dorian"))const countSelect = document.getElementById("count");
+const modeSelect = document.getElementById("modes");
+const noteSelect = document.getElementById("notes");
+const counts = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+function populateCounts() {
+    for (let x of counts) {
+        const option = document.createElement("option");
+        option.textContent = x;
+        countSelect.appendChild(option);
+    }
+    countSelect.value = "";
+}
+function populateModes() {
+    for (let x of modes) {
+        const option = document.createElement("option");
+        option.textContent = x;
+        modeSelect.appendChild(option);
+    }
+    modeSelect.value = "";
+}
+function populateNotes(mode) {
+    while (noteSelect.firstChild) {
+        noteSelect.removeChild(noteSelect.firstChild);
+    }
+    notes = [];
+    if (mode == "Melodic") {
+        notes = melodic_keys;
+    } else if (mode == "Harmonic") {
+        notes = harmonic_keys;
+    } else {
+        notes = ionian_keys;
+    }
+    for (let x of notes) {
+        const option = document.createElement("option");
+        option.textContent = x;
+        noteSelect.appendChild(option);
+    }
+    noteSelect.value = "";
+}
+populateCounts();
+populateModes();
+populateNotes(modeSelect.value);
+modeSelect.onchange = function () {
+    populateNotes(modeSelect.value);
+};
 function rhythmPermutations(size = 8, start = [2, 3, 4]) {
     var upper = intDiv(size, 2);
     var old = [];
@@ -216,14 +263,14 @@ function chordsFromKey(
 function randomKey() {
     var key = choice(ionian_keys);
     var mode_offset = choice(xrange(7));
-    var mode_name = ionian_names[mode_offset];
+    var mode = ionian_names[mode_offset];
     var res = chordsFromKey(key, mode_offset, ionian);
     var chords = res[0];
     var key = res[1];
     if (chords.length == 0) {
         return randomKey();
     }
-    return [chords, `${key} ${mode_name}`];
+    return [chords, `${key} ${mode}`];
 }
 function chartFromNumbers(chords) {
     var numbers = chordNumbers(12);
@@ -280,12 +327,34 @@ function writeChartToDoc(chart, step) {
     idWrite("chart", res);
 }
 function writeRandomChart() {
-    var res = randomKey();
+    var countValue = countSelect.value;
+    if (!countValue) {
+        countValue = 8;
+    }
+    var count = randomStrumPattern(countValue);
+    var modeValue = modeSelect.value;
+    var keyValue = noteSelect.value;
+    if (!keyValue || !modeValue) {
+        var res = randomKey();
+        var key = res[1];
+    }
+    else if (modeValue == "Harmonic") {
+        var res = chordsFromKey(keyValue, 0, harmonic);
+        var key = `${res[1]} Harmonic`;
+    }
+    else if (modeValue == "Melodic") {
+        var res = chordsFromKey(keyValue, 0, melodic);
+        var key = `${res[1]} Melodic`;
+    }
+    else {
+        var mode_offset = Number(ionian_names.indexOf(modeValue));
+        var res = chordsFromKey(keyValue, mode_offset, ionian);
+        var mode = ionian_names[mode_offset];
+        var key = `${res[1]} ${mode}`;
+    }
     var chords = res[0];
-    var key = res[1];
     var chart = chartFromNumbers(chords);
-    var strum = randomStrumPattern();
-    idWrite("chartStats", `Key: ${key}<br>Rhythm: ${strum}`);
+    idWrite("chartStats", `Key: ${key}<br>Count ${count}`);
     writeChartToDoc(chart, 4);
 }
 writeRandomChart();

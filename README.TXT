@@ -1,4 +1,4 @@
-Chartifier v0.4.8
+Chartifier v0.7.5
 
 Randomly generates a chord chart and strum pattern for you to play.
 
@@ -7,10 +7,12 @@ writing tool that I love to use when writing songs. However, sometimes I want so
 as well. So I made a random chord chart generator complete with random strum patterns too. 
 
 I started with the strum patterns and in fact the math for strum patterns is much more intense than the
-math for chords but I consider rhythm and harmony equally important to the generation of random music.
+math for chords but I consider rhythm and harmony equally important to the generation of random charts.
 
-Chartifier generates a new random chord chart every time you load it. I am planning on adding
-some nice features to the UI like radio buttons to select what key you want.
+Chartifier generates a new random chord chart in a random key every time you refresh the page or click New Chords.
+There are also dropdown menus that allow you to select a mode and a key (you need to select both) and then the
+New Chords button will use your chosen key. You can also choose a number of eighth notes for the generated strum 
+pattern (this is called "count" and has it's own dropdown menu).
 
 This is my first time working on a web app and I don't yet have a place to host Chartifier. If you've
 read this far and you'd like to try using Chartifier it's extremely simple to run on any computer with
@@ -24,7 +26,7 @@ Chartifier is really simple and does not need an internet connection to run. It 
 offline sandbox or in private browsing. There is no data collection, or phoning home. Just pure, fun, 
 javascript functions.
 
-The total size of the Chartifier v0.3.5 src directory is 23.8 kB, and the dist directory is 10.3 kB. 
+The total size of the Chartifier v0.7.5 src directory is 27.3 kB, and the dist directory is 13.6 kB. 
 While I do expect this project to grow a bit, it will never use cookies, 
 communicate with a server, or do anything remotely sketchy with your CPU cycles. This is a webapp meant for 
 a more nostalgic time when the web was neat!
