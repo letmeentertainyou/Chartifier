@@ -56,6 +56,8 @@ def js_bundler(modules: List[str]) -> None:
         with open(f"src/{script}", "r", encoding="UTF-8") as tmpfile:
             lines: List[str] = tmpfile.readlines()
 
+        js_out.append(f"/* {script[3:-3].upper()} */\n")
+
         for line in lines:
             if line.lstrip()[0:2] == "/*":
                 multiline_comment = True

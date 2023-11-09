@@ -1,3 +1,4 @@
+/* RANDOM */
 const BITS_MAX = 48;
 const DEFAULT_ENTROPY = 32;
 const RAND_MAX = 0xffff_ffff_ffff;
@@ -54,6 +55,7 @@ function randomInt(min, max) {
     } while (x > range);
     return x + min;
 }
+/* TOOLS */
 const deepCopy = (iterable) => JSON.parse(JSON.stringify(iterable));
 const xfill = (copies, num) => Array(copies).fill(num);
 function xrange(upper, lower = 0, step = 1) {
@@ -98,6 +100,7 @@ function lenSetFirstChars(listOfStr) {
     var usableSet = Array.from(set);
     return usableSet.length;
 }
+/* MUSICTHEORY */
 var diatonic_notes = { 'C♯': 'D♭', 'F♯': 'G♭', 'B': 'C♭', 'D♭': 'C♯', 'G♭': 'F♯', 'C♭': 'B' };
 var primary_sharps   = ['C',  'C♯', 'D', 'D♯', 'E', 'F',  'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
 var secondary_sharps = ['C',  'C♯', 'D', 'D♯', 'E', 'E♯', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
@@ -116,6 +119,7 @@ var melodic  = [[2, 'Min'], [1, 'Min'], [2, 'Aug'], [2, 'Maj'], [2, 'Maj'], [2, 
 var harmonic = [[2, 'Min'], [1, 'Dim'], [2, 'Aug'], [2, 'Min'], [1, 'Maj'], [3, 'Maj'], [1, 'Dim']];
 const modes = [ "Melodic", "Harmonic", "Ionian", "Dorian", "Phrygian", 
                 "Lydian", "Mixolydian", "Aeolian", "Locrian"];
+/* DROPDOWNS */
 const countSelect = document.getElementById("count");
 const modeSelect = document.getElementById("modes");
 const noteSelect = document.getElementById("notes");
@@ -161,6 +165,7 @@ populateNotes(modeSelect.value);
 modeSelect.onchange = function () {
     populateNotes(modeSelect.value);
 };
+/* RHYTHM */
 function rhythmPermutations(size = 8, start = [2, 3, 4]) {
     var upper = intDiv(size, 2);
     var old = [];
@@ -193,6 +198,7 @@ function rhythmPermutations(size = 8, start = [2, 3, 4]) {
     }
     return results;
 }
+/* MAIN */
 function randomStrumPattern(size = 8) {
     function strummer(list_int) {
         var result = [];
