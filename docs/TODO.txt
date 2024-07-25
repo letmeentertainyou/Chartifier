@@ -10,10 +10,18 @@ I'd also like to allow users to select a second key so that they can have chords
 either key in their chart. This will really make the UI uglier so I'm not sure if it's
 realistic.
 
+*** C PYTHON ***
+    *Fix memory issues in C code for higher input size performance.
+    *Write a much more complex version of pybuild.sh with benchmarking and O flag options.
+    *Benchmark C module it against original Python code.
+
+*** PYTHON ***
+    *use machine learning to generate random chord progressions based on training data.
 
 *** JAVASCRIPT ***
     *start creating chord weighting algos.
-
+    *fix dropdowns so that key is only reset when the selected mode does't have that key.
+        This should be a simple logic tweak in maybe two places in one file. 
 
 *** HTML/CSS ***
     *make font sizes dynamic.
@@ -109,3 +117,48 @@ and added some v0.7.5 screenshots. Added support for harmonic/melodic minor keys
 front end (it was in the first published version of Chartifier.) I could add support for 
 the modes of the harmonic/melodic minor scales but I don't know their names and it would 
 make the modes dropdown menu have 21 items which is a bit busy.
+
+v0.8.0
+Rewrote rhythm.py in C. The first draft in C has some memory issues that Python didn't have, I am
+working on a second revision that uses much less memory via bit packing.
+
+v0.8.1
+Found what I think was a pretty big memory leak in int_array.c, weirdly I found it because I was
+messing around with the new bit packed version of the library and found that my old code from Sets.c 
+was flawed. Before the fix rhythm_permutations(47) was getting killed and fulling filling up my ram,
+now it does take almost all 16GB of ram that I have but it isn't being killed. So I do think I patched
+a pretty major leak. I'm glad I found it now because the improvements of the bit packed one will look
+better without a major leak.
+
+v0.8.5
+A second version of the C code that bit packs 16 values into the same amount of memory as a single int
+has been written. I actually wrote and rewrote the code several times fixing many bugs and performance
+wastes along the way. The final version of the library is very compact, I tried to remove every single
+unneeded assignment because these functions are ultimately run millions and millions of times. There
+is a document called times.txt in the C code directory that goes into a little detail about the time
+differences between the different versions. I expected some serious time losses because of all this
+bit packing and the first version was very bad but now the loss is about 10 seconds at size=45. Which
+is not bad because the old C code can't run much bigger than that do to ram usage. So I'd call this
+a pretty big win.
+
+v0.8.6
+I wrote one more quick version of the Array library that does use unsigned chars instead of ints but it
+only packs one value into each. This version is just as fast as the original int version but is also
+4x memory efficient. It's a comprise on the 16x memory reduction but it feels like a fair place to end.
+I will begin working on the C module next but I might package up the arrays and add the better code to
+my Sets repository that the C code originally came from because there were many many memory leaks in the
+original code.
+
+v0.9.0
+Started reusing the arrays that I allocated with a clear_array function. This removed a significant amount
+of allocation and free calls from the stack. I also made a few other speed improvements and took a little
+while to unify the code from the three different modules. I'm probably going to put two of the modules into
+a relegated state soon so that I stop maintaining three copies of the array code.
+
+I also combined all my different compile/debug/benchmark scripts into one build script that also supports
+different GCC optimization flags.
+
+v0.9.7
+I built the first version of the Python module, it has it's own build script called pybuild.sh, and it can be
+built with any of the three array.c libraries I wrote. There is still some work to be done on memory management
+and error handling though.

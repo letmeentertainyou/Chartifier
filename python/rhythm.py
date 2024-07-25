@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/bin/python3.10
 
 """
 I spent a long time thinking up this blazingly fast algorithm and am very proud
@@ -71,5 +71,19 @@ def write_strums_to_json(max=12, min=4):
         json.dump(all_eighth_notes, f)
 
 
-# write_strums_to_json(max=20)
-print(sorted(rhythm_permutations(size=16)))
+def write_strums_to_json_ALT(max=16, min=4):
+    # pairs = []
+
+    for size in range(min, max + 1):
+        print(f"Finding strum patterns with {size} eighth notes.")
+        # l = len(rhythm_permutations(size=size))
+        l = rhythm_permutations(size=size)
+        pair = f"{size} {l}\n"
+        open("output_list_alt.txt", "a", encoding="UTF-8").write(pair)
+        print(f"Pairs for {size} written.")
+
+
+if __name__ == "__main__":
+    write_strums_to_json(max=16, min=4)
+    # write_strums_to_json(max=20)
+    # print(sorted(rhythm_permutations(size=16)))

@@ -1,5 +1,14 @@
 *__pycache__*
 *.mypy_cache*
 *.pytest_cache*
+*vscode*
 *cache*
 *relegated*
+*env*
+*rhythm_training*
+.vscode/settings.json
+*.so
+*.o
+*.out
+*build
+test.py

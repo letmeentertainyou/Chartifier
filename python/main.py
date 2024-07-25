@@ -1,9 +1,10 @@
-#!/bin/python3
+#!/bin/python3.10
 
 from random import choice
 
 from music_theory import *
 from rhythm import rhythm_permutations
+
 
 # RHYTHM #
 
@@ -28,8 +29,6 @@ def random_strum_pattern(size=8):
 
 
 # HARMONY #
-
-# String padding function has been omitted from the Python source because it's built into the language.
 
 
 def chords_from_key(key: str = "C", mode_offset: int = 0, mode=ionian, first_pass=True):
@@ -170,8 +169,9 @@ def chord_weights(count=12):
     return result
 
 
-####### EXAMPLES #######
-strum = random_strum_pattern()
-chords, key = random_key()
-print([strum, chords, key])
-print(chart_from_numbers(chords))
+if __name__ == "__main__":
+    ####### EXAMPLES #######
+    strum = random_strum_pattern()
+    chords, key = random_key()
+    print([strum, chords, key])
+    print(chart_from_numbers(chords))

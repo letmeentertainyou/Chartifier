@@ -1,4 +1,9 @@
 /* RANDOM */
+// This should still credit the author of random.js if I'm gonna webpack it
+// Otherwise maybe random.js just shouldn't be packed because I didn't write it.
+
+// I have to assume larger projects webpack their js though because that's the whole point of webpacking.
+// Chat GPT says just put attribution in the bundle.
 const BITS_MAX = 48;
 const DEFAULT_ENTROPY = 32;
 const RAND_MAX = 0xffff_ffff_ffff;
