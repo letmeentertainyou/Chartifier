@@ -1,7 +1,7 @@
 /* 
-This is a portable resizable Array library built with and the ability to import regular C arrays 
-into an Array struct. This version stores an array of unsigned chars (Byte) in Array->values and
-packs four two bit values into each Byte.
+    This is a portable resizable Array library built with and the ability to import regular C arrays 
+    into an Array struct. This version stores an array of unsigned chars (Byte) in Array->values and
+    packs four two bit values into each Byte.
 */
 
 #include "array.h"
@@ -32,7 +32,7 @@ void clear_array(Array* array) {
 }
 
 /* Initializes an empty Array of size=size. */
-Array *empty_init(int size) {
+Array *empty_array(int size) {
     // For some reason malloc + this library + -O flags caused a leak and calloc does not.
     Array *array = (Array *)calloc(1, sizeof(Array) + size * sizeof(Byte));
     if (!array) {
@@ -46,7 +46,7 @@ Array *empty_init(int size) {
 
 /* Copies the contents of the array into a new one of new_size, and then frees original array. */
 Array *resize_array(Array *array) {
-    Array *new_array = empty_init(array->size * 2);
+    Array *new_array = empty_array(array->size * 2);
     new_array->length = array->length;
     memcpy(new_array->values, array->values, (array->length / 4) * sizeof(Byte));
     free(array);
@@ -71,14 +71,14 @@ Array *append_pad(Array *array, int value) {
 }
 
 /* Initializes an Array with the given value in it. */
-Array *int_init(int value) {
-    return append(empty_init(1), value);
+Array *array_from_int(int value) {
+    return append(empty_array(1), value);
 }
 
 /* This initializes an Array with a regular C array and it's length. This is different from
    extend() which only takes other Array structs and doesn't initialize. */
-Array *array_init(int copy[], int copy_length) {
-    Array * target = empty_init(copy_length);
+Array *array_from_array(int copy[], int copy_length) {
+    Array * target = empty_array(copy_length);
     for (int i = 0; i < copy_length; i++) {
         target = append(target, copy[i]);
     }

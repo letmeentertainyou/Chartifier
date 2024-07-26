@@ -1,18 +1,23 @@
-This UI looks decently slick in the screenshots but still fails when a page is zoomed in
-or out. So I need to learn how to make every text element dynamic. The challenge is that
-the actual text of the chord chart needs to be very large.
+At this point I'm mostly just working on the C code and I will probably branch that off into
+it's own project soon. I'm gonna try to implement a few two dimensional array methods in C and that
+will get it's own repo soon. I like using Python so I'm going to continuing focusing on writing C that 
+I can run in Python. I know there are some other options with sys calls directly from python and Cython as
+well. I don't really know the performance differences between the three but I like writing C so I'm going
+to focus on C Python for now. I really like how cleanly integrated with Python it is.
 
-After cleaning up the UI, I can finally work on adding a verse/chorus option, and maybe a
-choice for how long a given progression needs to be.
+Speaking of Python for this version I have been using Python3.8 because that's the official version on my system and
+it has setuptools installed. I have so many other versions of python on my computer but they don't have their
+own pip commands. I can create environments and install libraries that way. But for the fast and lazy approach of 
+actually installing packages globally my python situation is a bit busted. So I will probably just setup a python
+environment with it's own dockerfile in the next project. Maybe I'll even try building a C python module inside of 
+docker that would be wild! Also I can use the latest python which I think is 3.12 and learn it's features too.
 
-Eventually I will modify the chord weighting algorithm to be more musically interesting.
-I'd also like to allow users to select a second key so that they can have chords from
-either key in their chart. This will really make the UI uglier so I'm not sure if it's
-realistic.
 
 *** C PYTHON ***
     *Fix memory issues in C code for higher input size performance.
+
     *Write a much more complex version of pybuild.sh with benchmarking and O flag options.
+
     *Benchmark C module it against original Python code.
 
 *** PYTHON ***
@@ -162,3 +167,16 @@ v0.9.7
 I built the first version of the Python module, it has it's own build script called pybuild.sh, and it can be
 built with any of the three array.c libraries I wrote. There is still some work to be done on memory management
 and error handling though.
+
+ADDENDUM: I accidentally wiped out every update after v0.7.4 from git but you can read about them in this changelog.
+
+v0.9.8
+Updated pybuild.sh to auto generate the required setup.py file so that I don't need three copies of it. I can tell
+that if I start adding flags for benchmarking and optimizing then that script will get very messy. I'm not sure of the
+right path forward but I'm guessing there are other build tools for C Python so perhaps the best move forward is to learn
+more about them. 
+
+I also tried to clean up the names of the files in c/ it's a little confusing all over the place because
+I put the main function of the code in a separate file from the actually python code. I was treating it a bit like how 
+you separate gui code from logic and doing it that way made sense because I wrote the C code before involving Python.h.
+I will continue trying to clean the names up wherever possible.

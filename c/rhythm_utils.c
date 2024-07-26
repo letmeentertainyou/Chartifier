@@ -1,21 +1,19 @@
 /* 
-The goal here is to replicate the functions from rhythm.py as a C Python file so I can
-build my first Python C extension. I have put a lot of thought into how I can handle multi
-dimensional arrays where the size of the inner and outer arrays are dynamic. And I decided to
-skip the whole mess by using one single resizable array that uses zeros to mark the end of each
-sub array.
+    An implementation of the code I originally wrote in Python/Go/Javascript. It's striking me now
+    how little the doc strings in those languages actually explain what the function does. I will
+    write that in great detail later.
 */
 
 
-#include "rhythm.h"
+#include "rhythm_utils.h"
 
 Array *rhythm_permutations(int size) {
-    Array *start = array_init((int[]){2, 3, 4}, 3);
-    Array *old = empty_init(10);
-    Array *tmp = empty_init(10);
-    Array *tail = empty_init(10);
-    Array *perm = empty_init(10);
-    Array *results = empty_init(10);
+    Array *start = array_from_array((int[]){2, 3, 4}, 3);
+    Array *old = empty_array(10);
+    Array *tmp = empty_array(10);
+    Array *tail = empty_array(10);
+    Array *perm = empty_array(10);
+    Array *results = empty_array(10);
     
     int upper = size / 2;
     for (int i = 0; i < start->length; i++) {
