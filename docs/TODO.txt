@@ -180,3 +180,8 @@ I also tried to clean up the names of the files in c/ it's a little confusing al
 I put the main function of the code in a separate file from the actually python code. I was treating it a bit like how 
 you separate gui code from logic and doing it that way made sense because I wrote the C code before involving Python.h.
 I will continue trying to clean the names up wherever possible.
+
+v0.9.9
+Retooled pybuild so that it doesn't include the full text of setup.py and rhythm_utils.h. Now there is a directory called
+templates with almost complete versions of the files and the pybuild script uses sed to create the correct versions of those
+files in the correct places. It's still a bit messy but I think it always will be with this kind of dynamic library inclusion.
