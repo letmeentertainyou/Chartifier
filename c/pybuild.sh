@@ -22,13 +22,6 @@ clean() {
     rm -r build > /dev/null 2>&1
 }
 
-# Replaces ARRAY_DIR in the template with the requested location.
-# $1 = the array dir, $2 = name of file to update, $3 = extension of file to update.
-update_template() {
-    echo "Writing new $2$3 file."
-    sed "s/ARRAY_DIR/${1}_array/g" templates/$2 > $2$3
-}
-
 # This would be changed if there were a second arg for install mode.
 if [ $# -ne 1 ]; then
     echo "This script takes exactly one arg."
@@ -38,10 +31,16 @@ elif [ $1 == "clean" ]; then
     exit 1
 elif [[ " ${modes[@]} " =~ " $1 " ]]; then
     clean  # If I don't clean here then it doesn't compile the code again.
-    update_template $1 "rhythm_utils" ".h"
-    update_template $1 "setup" ".py"
+
+    # Replace ARRAY_DIR in the template with the requested location.
+    sed "s/ARRAY_DIR/${1}_array/g" templates/rhythm_utils > rhythm_utils.h
+    sed "s/ARRAY_DIR/${1}_array/g" templates/setup > setup.py
+
+    # Build
     python3 setup.py build
     cp $build_path rhythm_utils.so
+    
+    # Run
     ./test.py
 else
     echo "The first arg ($1) was not a valid mode."
